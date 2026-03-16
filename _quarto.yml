@@ -1,0 +1,21 @@
+project:
+  type: website
+
+website:
+  title: "Machine Learning in Time Series"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - lecture_1.qmd
+      - about.qmd
+      - about2.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

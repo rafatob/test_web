@@ -1,0 +1,9 @@
+---
+title: "About 2nd page"
+---
+
+About this site
+
+```{r}
+2 + 2
+```
