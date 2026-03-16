@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tu Nombre">
-<meta name="dcterms.date" content="2025-01-01">
+<meta name="author" content="Prof.&nbsp;Marcelo Villena Ch., PhD">
+<meta name="dcterms.date" content="2026-01-01">
 
-<title>Machine Learning in Time Series - Lecture 1 — Introducción a ML en Series de Tiempo</title>
+<title>Machine Learning in Time Series - Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -99,6 +99,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -184,14 +186,70 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido</h2>
+   
+  <ul>
+  <li><a href="#seminar-overview-mechanics" id="toc-seminar-overview-mechanics" class="nav-link active" data-scroll-target="#seminar-overview-mechanics">Seminar Overview &amp; Mechanics</a>
+  <ul class="collapse">
+  <li><a href="#seminar-objective" id="toc-seminar-objective" class="nav-link" data-scroll-target="#seminar-objective">Seminar Objective</a></li>
+  <li><a href="#course-mechanics-evaluation" id="toc-course-mechanics-evaluation" class="nav-link" data-scroll-target="#course-mechanics-evaluation">Course Mechanics &amp; Evaluation</a></li>
+  <li><a href="#the-seminar-project" id="toc-the-seminar-project" class="nav-link" data-scroll-target="#the-seminar-project">The Seminar Project</a></li>
+  <li><a href="#the-6-lectures-roadmap" id="toc-the-6-lectures-roadmap" class="nav-link" data-scroll-target="#the-6-lectures-roadmap">The 6-Lectures Roadmap</a></li>
+  </ul></li>
+  <li><a href="#the-epistemological-shift" id="toc-the-epistemological-shift" class="nav-link" data-scroll-target="#the-epistemological-shift">The Epistemological Shift</a>
+  <ul class="collapse">
+  <li><a href="#classical-econometrics-vs.-machine-learning" id="toc-classical-econometrics-vs.-machine-learning" class="nav-link" data-scroll-target="#classical-econometrics-vs.-machine-learning">Classical Econometrics vs.&nbsp;Machine Learning</a></li>
+  <li><a href="#historical-context-the-four-revolutions" id="toc-historical-context-the-four-revolutions" class="nav-link" data-scroll-target="#historical-context-the-four-revolutions">Historical Context: The Four Revolutions</a></li>
+  </ul></li>
+  <li><a href="#the-prediction-problem-evaluation" id="toc-the-prediction-problem-evaluation" class="nav-link" data-scroll-target="#the-prediction-problem-evaluation">The Prediction Problem &amp; Evaluation</a>
+  <ul class="collapse">
+  <li><a href="#the-bias-variance-tradeoff" id="toc-the-bias-variance-tradeoff" class="nav-link" data-scroll-target="#the-bias-variance-tradeoff">The Bias-Variance Tradeoff</a></li>
+  <li><a href="#evaluating-time-series-avoiding-data-leakage" id="toc-evaluating-time-series-avoiding-data-leakage" class="nav-link" data-scroll-target="#evaluating-time-series-avoiding-data-leakage">Evaluating Time Series: Avoiding Data Leakage</a></li>
+  </ul></li>
+  <li><a href="#the-curse-of-dimensionality-overfitting" id="toc-the-curse-of-dimensionality-overfitting" class="nav-link" data-scroll-target="#the-curse-of-dimensionality-overfitting">The Curse of Dimensionality &amp; Overfitting</a>
+  <ul class="collapse">
+  <li><a href="#the-limits-of-classical-ols" id="toc-the-limits-of-classical-ols" class="nav-link" data-scroll-target="#the-limits-of-classical-ols">The Limits of Classical OLS</a></li>
+  <li><a href="#visualizing-the-problem-overfitting" id="toc-visualizing-the-problem-overfitting" class="nav-link" data-scroll-target="#visualizing-the-problem-overfitting">Visualizing the Problem: Overfitting</a></li>
+  <li><a href="#why-classic-rules-break-the-failure-of-distance" id="toc-why-classic-rules-break-the-failure-of-distance" class="nav-link" data-scroll-target="#why-classic-rules-break-the-failure-of-distance">Why Classic Rules Break: The Failure of Distance</a></li>
+  </ul></li>
+  <li><a href="#regularization-ridge-and-lasso" id="toc-regularization-ridge-and-lasso" class="nav-link" data-scroll-target="#regularization-ridge-and-lasso">Regularization: Ridge and Lasso</a>
+  <ul class="collapse">
+  <li><a href="#the-solution-regularization-shrinkage" id="toc-the-solution-regularization-shrinkage" class="nav-link" data-scroll-target="#the-solution-regularization-shrinkage">The Solution: Regularization (Shrinkage)</a></li>
+  <li><a href="#ridge-regression-l_2-regularization" id="toc-ridge-regression-l_2-regularization" class="nav-link" data-scroll-target="#ridge-regression-l_2-regularization">Ridge Regression (<span class="math inline">\(L_2\)</span> Regularization)</a></li>
+  <li><a href="#lasso-penalized-vs.-constrained-formulation" id="toc-lasso-penalized-vs.-constrained-formulation" class="nav-link" data-scroll-target="#lasso-penalized-vs.-constrained-formulation">Lasso: Penalized vs.&nbsp;Constrained Formulation</a></li>
+  <li><a href="#the-geometry-of-shrinkage" id="toc-the-geometry-of-shrinkage" class="nav-link" data-scroll-target="#the-geometry-of-shrinkage">The Geometry of Shrinkage</a></li>
+  <li><a href="#the-mathematical-logic-of-the-penalties" id="toc-the-mathematical-logic-of-the-penalties" class="nav-link" data-scroll-target="#the-mathematical-logic-of-the-penalties">The Mathematical Logic of the Penalties</a></li>
+  <li><a href="#summary-comparison" id="toc-summary-comparison" class="nav-link" data-scroll-target="#summary-comparison">Summary Comparison</a></li>
+  </ul></li>
+  <li><a href="#readings-lecture-1-mini-lab" id="toc-readings-lecture-1-mini-lab" class="nav-link" data-scroll-target="#readings-lecture-1-mini-lab">Readings &amp; Lecture 1 Mini-Lab</a>
+  <ul class="collapse">
+  <li><a href="#required-recommended-readings" id="toc-required-recommended-readings" class="nav-link" data-scroll-target="#required-recommended-readings">Required &amp; Recommended Readings</a></li>
+  <li><a href="#lecture-1-mini-lab-leakage-safe-shrinkage" id="toc-lecture-1-mini-lab-leakage-safe-shrinkage" class="nav-link" data-scroll-target="#lecture-1-mini-lab-leakage-safe-shrinkage">Lecture 1 Mini-Lab: Leakage-Safe Shrinkage</a></li>
+  <li><a href="#understanding-script-1-the-baseline-ar12-pipeline" id="toc-understanding-script-1-the-baseline-ar12-pipeline" class="nav-link" data-scroll-target="#understanding-script-1-the-baseline-ar12-pipeline">Understanding Script 1: The Baseline AR(12) Pipeline</a></li>
+  <li><a href="#understanding-script-2-rolling-windows-direct-forecast" id="toc-understanding-script-2-rolling-windows-direct-forecast" class="nav-link" data-scroll-target="#understanding-script-2-rolling-windows-direct-forecast">Understanding Script 2: Rolling Windows &amp; Direct Forecast</a></li>
+  </ul></li>
+  <li><a href="#mini-lab-empirical-results-commentary" id="toc-mini-lab-empirical-results-commentary" class="nav-link" data-scroll-target="#mini-lab-empirical-results-commentary">Mini-Lab: Empirical Results &amp; Commentary</a>
+  <ul class="collapse">
+  <li><a href="#lab-results-the-baseline-ar12-split" id="toc-lab-results-the-baseline-ar12-split" class="nav-link" data-scroll-target="#lab-results-the-baseline-ar12-split">Lab Results: The Baseline AR(12) Split</a></li>
+  <li><a href="#lab-results-rolling-windows-long-horizons" id="toc-lab-results-rolling-windows-long-horizons" class="nav-link" data-scroll-target="#lab-results-rolling-windows-long-horizons">Lab Results: Rolling Windows &amp; Long Horizons</a></li>
+  <li><a href="#is-inflation-linear-and-stationary-implications-for-forecasting-and-shrinkage" id="toc-is-inflation-linear-and-stationary-implications-for-forecasting-and-shrinkage" class="nav-link" data-scroll-target="#is-inflation-linear-and-stationary-implications-for-forecasting-and-shrinkage">Is Inflation “Linear” and “Stationary”? Implications for Forecasting and Shrinkage</a></li>
+  </ul></li>
+  <li><a href="#concluding-remarks" id="toc-concluding-remarks" class="nav-link" data-scroll-target="#concluding-remarks">Concluding Remarks</a>
+  <ul class="collapse">
+  <li><a href="#project-10-minute-check-in" id="toc-project-10-minute-check-in" class="nav-link" data-scroll-target="#project-10-minute-check-in">Project: 10-Minute Check-In</a></li>
+  <li><a href="#looking-ahead-lecture-2" id="toc-looking-ahead-lecture-2" class="nav-link" data-scroll-target="#looking-ahead-lecture-2">Looking Ahead: Lecture 2</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Lecture 1 — Introducción a ML en Series de Tiempo</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<p class="subtitle lead">Machine Learning in Time Series</p>
 </div>
 
 
@@ -201,14 +259,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Tu Nombre </p>
+             <p>Prof.&nbsp;Marcelo Villena Ch., PhD </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2025</p>
+      <p class="date">January 1, 2026</p>
     </div>
   </div>
   
@@ -218,10 +276,575 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="seminar-overview-mechanics" class="level2">
+<h2 class="anchored" data-anchor-id="seminar-overview-mechanics">Seminar Overview &amp; Mechanics</h2>
+<section id="seminar-objective" class="level3">
+<h3 class="anchored" data-anchor-id="seminar-objective">Seminar Objective</h3>
+<blockquote class="blockquote">
+<p><strong>The Core Objective:</strong> This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.</p>
+</blockquote>
+<p><strong>Central Themes:</strong></p>
+<ul>
+<li>Treating ML methods as explicit optimization/statistical objects, not black boxes.</li>
+<li>Proper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.</li>
+<li>Shifting safely from structural identification to algorithmic risk minimization.</li>
+</ul>
+<hr>
+</section>
+<section id="course-mechanics-evaluation" class="level3">
+<h3 class="anchored" data-anchor-id="course-mechanics-evaluation">Course Mechanics &amp; Evaluation</h3>
+<p><strong>Format</strong></p>
+<ul>
+<li>6 Lectures, 3 hours each.</li>
+<li><strong>Structure per Lecture:</strong> Theory &amp; derivations (~75 min), Paper discussion (~75 min), and a Coding lab component (~30 min).</li>
+<li><strong>Tools:</strong> Python or R.</li>
+</ul>
+<p><strong>Evaluation Metrics</strong></p>
+<table class="table">
+<colgroup>
+<col style="width: 34%">
+<col style="width: 26%">
+<col style="width: 39%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Component</th>
+<th>Weight</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Memos &amp; Participation</td>
+<td>25%</td>
+<td>1-page reading memo due before each Lecture.</td>
+</tr>
+<tr class="even">
+<td>Presentation</td>
+<td>25%</td>
+<td>Present one syllabus paper + a 10-minute code walkthrough.</td>
+</tr>
+<tr class="odd">
+<td>Final Project</td>
+<td>50%</td>
+<td>10–15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+<section id="the-seminar-project" class="level3">
+<h3 class="anchored" data-anchor-id="the-seminar-project">The Seminar Project</h3>
+<blockquote class="blockquote">
+<p><strong>A Fixed Evaluation Protocol:</strong> To compare methods fairly without getting lost in “cool models”, the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.</p>
+</blockquote>
+<p><strong>The Task:</strong> Multi-horizon forecasting of YoY Core CPI Inflation.</p>
+<ul>
+<li><strong>Baselines:</strong> Mean/AR, small VAR, (optionally BVAR).</li>
+<li><strong>Data-Rich Extension:</strong> Later lectures will inject FRED-style predictor panels.</li>
+<li><strong>Evaluation Rule:</strong> Strict rolling/expanding OOS, leakage-safe tuning.</li>
+<li><strong>Horizons:</strong> <span class="math inline">\(h = \{1, 3, 6, 12\}\)</span>.</li>
+<li><strong>Metrics / Tests:</strong>
+<ul>
+<li>Forecast loss: RMSE / MAE by horizon.</li>
+<li>Comparison: Diebold-Mariano test when appropriate.</li>
+<li>Classification tasks: AUC / PR + calibration.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="the-6-lectures-roadmap" class="level3">
+<h3 class="anchored" data-anchor-id="the-6-lectures-roadmap">The 6-Lectures Roadmap</h3>
+<table class="table">
+<colgroup>
+<col style="width: 55%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Lecture</th>
+<th>Topic</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Lecture 1</strong></td>
+<td>Historical Evolution, the Prediction Problem, and Shrinkage.</td>
+</tr>
+<tr class="even">
+<td><strong>Lecture 2</strong></td>
+<td>Kernel Methods and Support Vector Machines (SVM) for Time Series.</td>
+</tr>
+<tr class="odd">
+<td><strong>Lecture 3</strong></td>
+<td>High-Dimensional Linear Dynamics (BVAR, Sparse VAR, &amp; Structured Regularization).</td>
+</tr>
+<tr class="even">
+<td><strong>Lecture 4</strong></td>
+<td>Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).</td>
+</tr>
+<tr class="odd">
+<td><strong>Lecture 5</strong></td>
+<td>Trees, Boosting, and Ensembles for Nonlinear Forecasting.</td>
+</tr>
+<tr class="even">
+<td><strong>Lecture 6</strong></td>
+<td>The Frontier: Attention, Text, and Causal ML.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="the-epistemological-shift" class="level2">
+<h2 class="anchored" data-anchor-id="the-epistemological-shift">The Epistemological Shift</h2>
+<section id="classical-econometrics-vs.-machine-learning" class="level3">
+<h3 class="anchored" data-anchor-id="classical-econometrics-vs.-machine-learning">Classical Econometrics vs.&nbsp;Machine Learning</h3>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>Classical Econometrics</strong></p>
+<ul>
+<li><strong>Goal:</strong> Recover the true DGP</li>
+<li><strong>Target:</strong> <span class="math inline">\(\mathbb{E}[Y \mid do(X)]\)</span> (Causal)</li>
+<li><strong>Setting:</strong> <span class="math inline">\(T \gg p\)</span> (Low-dimensional)</li>
+</ul>
+<p><em>Focuses on unbiasedness, parameter identification, and structural policy invariance (Lucas Critique).</em></p>
+</div><div class="column" style="width:48%;">
+<p><strong>The Algorithmic Turn</strong></p>
+<ul>
+<li><strong>Goal:</strong> Minimize OOS Loss</li>
+<li><strong>Target:</strong> <span class="math inline">\(\hat{f}(X) \approx \mathbb{E}[Y \mid X]\)</span> (Predictive)</li>
+<li><strong>Setting:</strong> <span class="math inline">\(p \approx T\)</span> or <span class="math inline">\(p &gt; T\)</span></li>
+</ul>
+<p><em>Focuses on generalization, variance reduction via shrinkage, and handling massive, unstructured data.</em></p>
+</div>
+</div>
+<blockquote class="blockquote">
+<p><strong>The Fourth Revolution (Villena, 2026):</strong> ML is not a rejection of econometrics; it is an evolution forced by the data explosion, trading parameter interpretability for forecast stability.</p>
+</blockquote>
+<hr>
+</section>
+<section id="historical-context-the-four-revolutions" class="level3">
+<h3 class="anchored" data-anchor-id="historical-context-the-four-revolutions">Historical Context: The Four Revolutions</h3>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 38%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Era</th>
+<th>Paradigm</th>
+<th>Key Developments</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1950s</td>
+<td><strong>Dynamic Structuralism</strong></td>
+<td>Cowles Tradition</td>
+</tr>
+<tr class="even">
+<td>1970s–80s</td>
+<td><strong>Atheoretical Turn</strong></td>
+<td>Box-Jenkins (’70) &amp; VARs (’80)</td>
+</tr>
+<tr class="odd">
+<td>1980s–90s</td>
+<td><strong>Cointegration</strong></td>
+<td>GARCH (’82) &amp; VECM (’87+)</td>
+</tr>
+<tr class="even">
+<td>2010s</td>
+<td><strong>Algorithmic</strong></td>
+<td>Regularization &amp; Deep Learning</td>
+</tr>
+</tbody>
+</table>
+<p><em>Note: This is a highly stylized heuristic timeline. Each phase emerged to solve the empirical failures of the previous paradigm (e.g., Sims’ critique leading to VARs).</em></p>
+<hr>
+</section>
+</section>
+<section id="the-prediction-problem-evaluation" class="level2">
+<h2 class="anchored" data-anchor-id="the-prediction-problem-evaluation">The Prediction Problem &amp; Evaluation</h2>
+<section id="the-bias-variance-tradeoff" class="level3">
+<h3 class="anchored" data-anchor-id="the-bias-variance-tradeoff">The Bias-Variance Tradeoff</h3>
+<p>In modern macro, OLS yields <span class="math inline">\(\text{Bias} \approx 0\)</span>, but Variance explodes as predictors <span class="math inline">\(p \to T\)</span>. ML algorithms actively introduce bias to suppress this variance.</p>
+<p>The total expected prediction error can be decomposed as:</p>
+<p><span class="math display">\[
+\text{MSE}(\hat{f}) = \text{Bias}^2(\hat{f}) + \text{Var}(\hat{f}) + \sigma^2
+\]</span></p>
+<ul>
+<li>As model complexity increases, <strong>Bias decreases</strong> but <strong>Variance increases</strong>.</li>
+<li>The optimal model minimizes total error at the <strong>regularized ML</strong> region — not at OLS.</li>
+</ul>
+<hr>
+</section>
+<section id="evaluating-time-series-avoiding-data-leakage" class="level3">
+<h3 class="anchored" data-anchor-id="evaluating-time-series-avoiding-data-leakage">Evaluating Time Series: Avoiding Data Leakage</h3>
+<p>Standard <span class="math inline">\(K\)</span>-fold cross-validation fails in time series due to temporal dependence. We must use strict sequential splits to mirror real-world forecasting.</p>
+<p><strong>Expanding Window (Recursive)</strong></p>
+<p>Each training set grows over time, adding new observations. Mirrors a central bank utilizing all historical data. Best for stationary series.</p>
+<pre><code>Fold 1: [Train ████░░░░] [Test █]
+Fold 2: [Train █████░░░] [Test █]
+Fold 3: [Train ██████░░] [Test █]</code></pre>
+<p><strong>Rolling Window</strong></p>
+<p>Training set has a fixed size that moves forward. Best when older data represents a discarded structural regime.</p>
+<pre><code>Fold 1: [Train ████░░░░] [Test █]
+Fold 2: [░Train ████░░░] [Test █]
+Fold 3: [░░Train ████░░] [Test █]</code></pre>
+<hr>
+</section>
+</section>
+<section id="the-curse-of-dimensionality-overfitting" class="level2">
+<h2 class="anchored" data-anchor-id="the-curse-of-dimensionality-overfitting">The Curse of Dimensionality &amp; Overfitting</h2>
+<section id="the-limits-of-classical-ols" class="level3">
+<h3 class="anchored" data-anchor-id="the-limits-of-classical-ols">The Limits of Classical OLS</h3>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>What breaks OLS?</strong></p>
+<p>Ordinary Least Squares fits a hyperplane by strictly minimizing in-sample MSE.</p>
+<p><strong>Vulnerabilities in Modern Macro:</strong></p>
+<ul>
+<li>Highly sensitive to structural breaks and outliers.</li>
+<li>Cannot handle severe multicollinearity (singular <span class="math inline">\(X^\top X\)</span>).</li>
+<li><strong>Fails completely</strong> when predictors outnumber observations (<span class="math inline">\(p \gg T\)</span>).</li>
+</ul>
+</div><div class="column" style="width:48%;">
+<p><strong>The Curse of Dimensionality</strong></p>
+<p>As we add more variables (FRED-MD, text data), the mathematical volume of the data space grows exponentially.</p>
+<p>Data points become extremely sparse. OLS reacts by assigning massive, unstable coefficients to “chase” the noise, destroying Out-of-Sample (OOS) predictive power.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="visualizing-the-problem-overfitting" class="level3">
+<h3 class="anchored" data-anchor-id="visualizing-the-problem-overfitting">Visualizing the Problem: Overfitting</h3>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>✅ Good Fit (Learned the DGP)</strong></p>
+<p>The model captures the general structural trend. A simple linear fit through the data — it performs well on unseen rolling windows.</p>
+</div><div class="column" style="width:48%;">
+<p><strong>❌ Overfitting (Memorized the Noise)</strong></p>
+<p>Like memorizing a practice test. <span class="math inline">\(R^2 \approx 1\)</span> in-sample, but MSE explodes out-of-sample. The model zigzags through every data point.</p>
+</div>
+</div>
+<hr>
+</section>
+<section id="why-classic-rules-break-the-failure-of-distance" class="level3">
+<h3 class="anchored" data-anchor-id="why-classic-rules-break-the-failure-of-distance">Why Classic Rules Break: The Failure of Distance</h3>
+<p><strong>The “Magic Playground”</strong></p>
+<p>Imagine playing tag in a room with <strong>1,000 directions</strong> to run. Because there is so much empty space, everyone runs into their own corner.</p>
+<p><strong>Result:</strong> Everyone is exactly 1 mile away from you. If everyone is the same distance, the concept of “closest” disappears!</p>
+<p>When algorithms measure distance between 10,000 variables, the measurements become mathematically useless.</p>
+<hr>
+</section>
+</section>
+<section id="regularization-ridge-and-lasso" class="level2">
+<h2 class="anchored" data-anchor-id="regularization-ridge-and-lasso">Regularization: Ridge and Lasso</h2>
+<section id="the-solution-regularization-shrinkage" class="level3">
+<h3 class="anchored" data-anchor-id="the-solution-regularization-shrinkage">The Solution: Regularization (Shrinkage)</h3>
+<p>To survive high-dimensional environments (<span class="math inline">\(p \gg T\)</span>), we must enforce <strong>mathematical discipline</strong> to control bias.</p>
+<p>Instead of just minimizing empirical error, we minimize the error <strong>PLUS</strong> a penalty for complexity:</p>
+<p><span class="math display">\[
+\hat{\beta} = \arg\min_{\beta} \left\{ \mathcal{L}(Y, X\beta) + \lambda \cdot \mathcal{P}(\beta) \right\}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\lambda \ge 0\)</span> is the tuning parameter controlling the severity of the penalty.</li>
+<li>By forcing the model to generate smaller parameters, we trade a small amount of <strong>bias</strong> for a massive reduction in <strong>variance</strong>.</li>
+</ul>
+<hr>
+</section>
+<section id="ridge-regression-l_2-regularization" class="level3">
+<h3 class="anchored" data-anchor-id="ridge-regression-l_2-regularization">Ridge Regression (<span class="math inline">\(L_2\)</span> Regularization)</h3>
+<p><strong>Ridge Regression</strong> adds a squared Euclidean norm penalty to the objective:</p>
+<p><span class="math display">\[
+\hat{\beta}_{\text{Ridge}} = \arg\min_{\beta} \left\{ \frac{1}{2T} \|Y - X\beta\|_2^2 + \lambda \sum_{j=1}^p \beta_j^2 \right\}
+\]</span></p>
+<p><strong>Key Properties:</strong></p>
+<ul>
+<li><strong>Smooth Shrinkage:</strong> Pulls coefficients toward zero smoothly, but rarely reaches exactly zero.</li>
+<li><strong>Analytic Solution:</strong> Easily solved via linear algebra:</li>
+</ul>
+<p><span class="math display">\[\hat{\beta}_{\text{Ridge}} = (X^\top X + \lambda I)^{-1} X^\top Y\]</span></p>
+<ul>
+<li><strong>Econometric Link:</strong> Mathematically equivalent to a Bayesian VAR (BVAR) with a Gaussian prior centered at zero (e.g., Minnesota Prior).</li>
+</ul>
+<hr>
+</section>
+<section id="lasso-penalized-vs.-constrained-formulation" class="level3">
+<h3 class="anchored" data-anchor-id="lasso-penalized-vs.-constrained-formulation">Lasso: Penalized vs.&nbsp;Constrained Formulation</h3>
+<p>The Lasso (<span class="math inline">\(L_1\)</span>) estimator can be mathematically expressed in two equivalent forms:</p>
+<p><strong>1. The Penalized Form:</strong></p>
+<p><span class="math display">\[
+\min_{\beta} \left\{ \frac{1}{2T} \|y - X\beta\|_2^2 + \lambda \|\beta\|_1 \right\}
+\]</span></p>
+<p><em>Here,</em> <span class="math inline">\(\lambda \geq 0\)</span> acts as the penalty weight controlling the shrinkage intensity.</p>
+<p><strong>2. The Constrained Form:</strong></p>
+<p><span class="math display">\[
+\min_{\beta} \left\{ \frac{1}{2T} \|y - X\beta\|_2^2 \right\} \quad \text{s.t.} \quad \|\beta\|_1 \leq t
+\]</span></p>
+<p><em>Here,</em> <span class="math inline">\(t \geq 0\)</span> acts as an absolute “budget” for the coefficients. The KKT conditions establish that for every budget <span class="math inline">\(t\)</span>, there exists a corresponding penalty <span class="math inline">\(\lambda\)</span>.</p>
+<hr>
+</section>
+<section id="the-geometry-of-shrinkage" class="level3">
+<h3 class="anchored" data-anchor-id="the-geometry-of-shrinkage">The Geometry of Shrinkage</h3>
+<p>Why does Lasso select variables (<span class="math inline">\(\beta_j = 0\)</span>) while Ridge does not?</p>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>Lasso (</strong><span class="math inline">\(L_1\)</span> Diamond)</p>
+<p>The feasible region is a diamond shape with sharp corners. The loss function contours tend to hit exactly on a corner (axis), forcing one coefficient to zero.</p>
+<p><em>The sharp corners mean the contour hits exactly on an axis (</em><span class="math inline">\(\beta_1 = 0\)</span>).</p>
+</div><div class="column" style="width:48%;">
+<p><strong>Ridge (</strong><span class="math inline">\(L_2\)</span> Circle)</p>
+<p>The feasible region is a smooth circle. The loss function contours intersect the boundary off the axis, shrinking both coefficients without eliminating either.</p>
+<p><em>The circular boundary intersects off the axis, shrinking both without eliminating either.</em></p>
+</div>
+</div>
+<hr>
+</section>
+<section id="the-mathematical-logic-of-the-penalties" class="level3">
+<h3 class="anchored" data-anchor-id="the-mathematical-logic-of-the-penalties">The Mathematical Logic of the Penalties</h3>
+<p>Let’s look at a numerical example to see how the penalties behave differently.</p>
+<p>Suppose our current coefficients are <span class="math inline">\(\beta = [10, 5]\)</span>. What happens if the optimizer reduces the first parameter by exactly 1 unit (to 9)?</p>
+<table class="table">
+<colgroup>
+<col style="width: 44%">
+<col style="width: 27%">
+<col style="width: 27%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scenario</th>
+<th>Ridge (<span class="math inline">\(L_2\)</span>) Penalty <span class="math inline">\(\left(\sum \beta_i^2\right)\)</span></th>
+<th>Lasso (<span class="math inline">\(L_1\)</span>) Penalty <span class="math inline">\(\left(\sum |\beta_i|\right)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Initial: <span class="math inline">\([10, 5]\)</span></td>
+<td><span class="math inline">\(10^2 + 5^2 = 125\)</span></td>
+<td><span class="math inline">\(10 + 5 = 15\)</span></td>
+</tr>
+<tr class="even">
+<td>New: <span class="math inline">\([9, 5]\)</span></td>
+<td><span class="math inline">\(9^2 + 5^2 = 106\)</span></td>
+<td><span class="math inline">\(9 + 5 = 14\)</span></td>
+</tr>
+<tr class="odd">
+<td><strong>Reduction Size</strong></td>
+<td><strong>−19</strong></td>
+<td><strong>−1</strong></td>
+</tr>
+</tbody>
+</table>
+<blockquote class="blockquote">
+<p><strong>Insight:</strong> Ridge prioritizes shrinking <strong>large</strong> parameters because squaring large numbers increases the penalty exponentially. Lasso treats all unit reductions equally, allowing it to push a parameter to exactly zero.</p>
+</blockquote>
+<hr>
+</section>
+<section id="summary-comparison" class="level3">
+<h3 class="anchored" data-anchor-id="summary-comparison">Summary Comparison</h3>
+<table class="table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Ridge (<span class="math inline">\(L_2\)</span>)</th>
+<th>Lasso (<span class="math inline">\(L_1\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Primary Goal</strong></td>
+<td>Handle multicollinearity &amp; stabilize</td>
+<td>Feature selection &amp; simplicity</td>
+</tr>
+<tr class="even">
+<td><strong>Resulting Model</strong></td>
+<td>All features included (small weights)</td>
+<td>Sparse model (irrelevant features = 0)</td>
+</tr>
+<tr class="odd">
+<td><strong>Computational Solution</strong></td>
+<td>Closed-form (Matrix algebra)</td>
+<td>Numerical optimization (Iterative)</td>
+</tr>
+<tr class="even">
+<td><strong>Bias-Variance Tradeoff</strong></td>
+<td>Lower variance, slightly higher bias</td>
+<td>Lower variance, potentially higher bias</td>
+</tr>
+</tbody>
+</table>
+<p><em>Both models are essential tools for modern econometricians navigating data-rich (</em><span class="math inline">\(p \gg T\)</span>) environments!</p>
+<hr>
+</section>
+</section>
+<section id="readings-lecture-1-mini-lab" class="level2">
+<h2 class="anchored" data-anchor-id="readings-lecture-1-mini-lab">Readings &amp; Lecture 1 Mini-Lab</h2>
+<section id="required-recommended-readings" class="level3">
+<h3 class="anchored" data-anchor-id="required-recommended-readings">Required &amp; Recommended Readings</h3>
+<ul>
+<li><p><strong>Villena (2026):</strong> <em>From Lagged Effects to Algorithmic Prediction.</em> Sets the historical framing for the “Four Revolutions” and the shift toward algorithmic prediction.</p></li>
+<li><p><strong>Masini, Medeiros, &amp; Mendes (2023):</strong> <em>Machine learning advances for time series forecasting.</em> Crucial for understanding evaluation under temporal dependence.</p></li>
+<li><p><strong>De Mol, Giannone, &amp; Reichlin (2008) [Recommended]:</strong> <em>Forecasting using a large number of predictors…</em> Demonstrates that when data is highly collinear, Ridge regression and factor models (e.g.&nbsp;PCA) are deeply connected and solve the curse of dimensionality effectively.</p></li>
+</ul>
+<hr>
+</section>
+<section id="lecture-1-mini-lab-leakage-safe-shrinkage" class="level3">
+<h3 class="anchored" data-anchor-id="lecture-1-mini-lab-leakage-safe-shrinkage">Lecture 1 Mini-Lab: Leakage-Safe Shrinkage</h3>
+<blockquote class="blockquote">
+<p><strong>The Project Task:</strong> Build a leakage-safe Ridge/Lasso forecast for US YoY CPI (our canonical target) and compare it to a classical OLS benchmark using provided starter code.</p>
+</blockquote>
+<p><strong>Two R Scripts are provided for this lab:</strong></p>
+<ol type="1">
+<li><strong>Script 1 (Baseline):</strong> A static train-test split to introduce the <code>glmnet</code> syntax and AR(<span class="math inline">\(p\)</span>) feature engineering.</li>
+<li><strong>Script 2 (The Protocol):</strong> A rigorous <span class="math inline">\(h\)</span>-step ahead direct forecasting loop using rolling windows across multiple horizons.</li>
+</ol>
+<hr>
+</section>
+<section id="understanding-script-1-the-baseline-ar12-pipeline" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-script-1-the-baseline-ar12-pipeline">Understanding Script 1: The Baseline AR(12) Pipeline</h3>
+<p><strong>Core Mechanics of the Script:</strong></p>
+<ul>
+<li><strong>Feature Construction:</strong> We use <code>embed(inflation, p + 1)</code> to automatically construct the <span class="math inline">\(\mathbf{X}\)</span> matrix of <span class="math inline">\(t-1 \dots t-12\)</span> lags without manual looping.</li>
+<li><strong>Temporal Split:</strong> We strictly split the data at the 80% mark (<code>1:split_index</code>). <em>No random sampling is used</em> to prevent future information leaking into the training set.</li>
+<li><strong>Tuning</strong> <span class="math inline">\(\lambda\)</span>: The function <code>cv.glmnet(x_train, y_train)</code> performs <span class="math inline">\(k\)</span>-fold cross-validation to find <code>lambda.min</code>.</li>
+<li>⚠️ <strong>Important Note:</strong> We use standard <span class="math inline">\(k\)</span>-fold here <em>only</em> to introduce the syntax. Because random <span class="math inline">\(k\)</span>-fold breaks temporal order, all substantive results must use rolling/blocked CV or a time-ordered validation scheme!</li>
+</ul>
+<hr>
+</section>
+<section id="understanding-script-2-rolling-windows-direct-forecast" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-script-2-rolling-windows-direct-forecast">Understanding Script 2: Rolling Windows &amp; Direct Forecast</h3>
+<p>The second script implements our Seminar Project evaluation protocol:</p>
+<p><strong>1. Direct</strong> <span class="math inline">\(h\)</span>-step Ahead Forecasting:</p>
+<p>Instead of forecasting <span class="math inline">\(t+1\)</span> and iterating to <span class="math inline">\(t+h\)</span>, we model <span class="math inline">\(y_{t+h}\)</span> directly as a function of <span class="math inline">\(X_t\)</span>. The script shifts the feature index back by <span class="math inline">\(h\)</span>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>train_feature_idx <span class="ot">&lt;-</span> train_target_idx <span class="sc">-</span> h</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><strong>2. The Rolling Loop:</strong></p>
+<ul>
+<li><strong>Outer Loops:</strong> Iterate over forecast horizons (<span class="math inline">\(h = 1, 3, 6, 12\)</span>) and window sizes (<span class="math inline">\(T = 60, 120\)</span> months).</li>
+<li><strong>Inner Loop (<code>step in 1:OOS_steps</code>):</strong> Moves the training window forward exactly one month at a time, retraining the OLS, Ridge, and Lasso models at every single step before predicting exactly one out-of-sample data point.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="mini-lab-empirical-results-commentary" class="level2">
+<h2 class="anchored" data-anchor-id="mini-lab-empirical-results-commentary">Mini-Lab: Empirical Results &amp; Commentary</h2>
+<section id="lab-results-the-baseline-ar12-split" class="level3">
+<h3 class="anchored" data-anchor-id="lab-results-the-baseline-ar12-split">Lab Results: The Baseline AR(12) Split</h3>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Model</th>
+<th>RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Standard AR(12) (OLS)</td>
+<td>0.1865</td>
+</tr>
+<tr class="even">
+<td>Lasso AR(12) (L1)</td>
+<td>0.1959</td>
+</tr>
+<tr class="odd">
+<td>Ridge AR(12) (L2)</td>
+<td>0.3297</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <strong>Note:</strong> Baseline RMSE uses k-fold tuning for illustration; do not interpret it as leakage-robust.</p>
+<blockquote class="blockquote">
+<p><strong>Why did OLS win?</strong> In a low-dimensional setting where the model is well-specified and variance is already moderate, shrinkage can add bias <em>without</em> providing enough variance reduction to improve OOS RMSE.</p>
+</blockquote>
+<hr>
+</section>
+<section id="lab-results-rolling-windows-long-horizons" class="level3">
+<h3 class="anchored" data-anchor-id="lab-results-rolling-windows-long-horizons">Lab Results: Rolling Windows &amp; Long Horizons</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../images/OLS vs. ML Shrinkage.png" class="img-fluid figure-img"></p>
+<figcaption class="figure-caption">OLS vs.&nbsp;ML Shrinkage — Rolling Window Results</figcaption>
+</figure>
+</div>
+<p><strong>When Machine Learning saves the forecast:</strong></p>
+<ul>
+<li><strong>Long Horizons (</strong><span class="math inline">\(h=12\)</span>): Signal-to-noise ratio drops. OLS overfits to noise, causing RMSE to explode.</li>
+<li><strong>Small Windows (</strong><span class="math inline">\(T=60\)</span>): With only 5 observations per parameter, OLS variance becomes unstable.</li>
+<li><strong>The ML Edge:</strong> Ridge and Lasso act as “insurance.” By penalizing large coefficients, they stabilize the model during volatile periods or when degrees of freedom are scarce.</li>
+</ul>
+<blockquote class="blockquote">
+<p><em>Takeaway: Shrinkage is a requirement for stability, not just an option.</em></p>
+</blockquote>
+<hr>
+</section>
+<section id="is-inflation-linear-and-stationary-implications-for-forecasting-and-shrinkage" class="level3">
+<h3 class="anchored" data-anchor-id="is-inflation-linear-and-stationary-implications-for-forecasting-and-shrinkage">Is Inflation “Linear” and “Stationary”? Implications for Forecasting and Shrinkage</h3>
+<p><strong>Key point:</strong> Treating YoY CPI inflation as strictly linear and stationary is often a useful <em>local approximation</em>, but it is not a safe global assumption for forecasting or policy inference.</p>
+<p><strong>1) Stationarity: what is plausibly true.</strong></p>
+<ul>
+<li>Monthly CPI levels are nonstationary; YoY inflation is <em>more</em> stable and can look stationary in long samples.</li>
+<li>Still, inflation exhibits <strong>persistent dynamics</strong>, <strong>time-varying volatility</strong> and <strong>structural breaks</strong> (policy regimes, supply shocks, measurement/revisions).</li>
+</ul>
+<p><strong>2) Linearity: what is plausibly true.</strong></p>
+<ul>
+<li>An AR(12) is a linear conditional-mean model; it can fit well when dynamics are stable.</li>
+<li>Nonlinearities can arise from <strong>regime dependence</strong> (high vs low inflation), <strong>asymmetric responses</strong> to shocks, and <strong>changing persistence</strong>.</li>
+</ul>
+<p><strong>3) Why OLS may beat Ridge/Lasso in your AR(12).</strong></p>
+<ul>
+<li>With only <span class="math inline">\(p=12\)</span> regressors and decent <span class="math inline">\(T\)</span>, OLS variance is already low; shrinkage adds bias and may not reduce RMSE.</li>
+<li>If <span class="math inline">\(\lambda\)</span> is tuned with random <span class="math inline">\(k\)</span>-fold CV, time-order is violated and results can be distorted; use rolling/blocked tuning.</li>
+</ul>
+<p><strong>4) What to do in practice (seminar rule).</strong></p>
+<ul>
+<li>Diagnose: unit-root tests + break tests; check stability with rolling estimates; examine residual autocorrelation and heteroskedasticity.</li>
+<li>Evaluate honestly: rolling/expanding OOS, multi-horizon loss (RMSE/MAE), and (when relevant) forecast comparison tests.</li>
+<li>Expect ML gains mainly in <strong>data-rich</strong>, <strong>unstable</strong>, or <strong>nonlinear</strong> environments (many predictors, regime shifts, interactions).</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="concluding-remarks" class="level2">
+<h2 class="anchored" data-anchor-id="concluding-remarks">Concluding Remarks</h2>
+<section id="project-10-minute-check-in" class="level3">
+<h3 class="anchored" data-anchor-id="project-10-minute-check-in">Project: 10-Minute Check-In</h3>
+<blockquote class="blockquote">
+<p><strong>Our Standard Closing Questions:</strong> 1. What changed in OOS RMSE by horizon? 2. Which failure mode did we fix (or create)?</p>
+</blockquote>
+<p><strong>Today’s Answers:</strong></p>
+<ul>
+<li><strong>RMSE Shift:</strong> OLS dominated <span class="math inline">\(h=1\)</span> and large windows (<span class="math inline">\(T=120\)</span>). ML Shrinkage drastically improved <span class="math inline">\(h=12\)</span> on small windows (<span class="math inline">\(T=60\)</span>).</li>
+<li><strong>Failure Mode Fixed:</strong> We fixed the variance explosion of OLS in data-scarce, long-horizon settings.</li>
+<li><strong>Failure Mode Created:</strong> We introduced bias. In highly stable, low-dimensional settings, Ridge/Lasso mathematically underperformed OLS.</li>
+</ul>
+<hr>
+</section>
+<section id="looking-ahead-lecture-2" class="level3">
+<h3 class="anchored" data-anchor-id="looking-ahead-lecture-2">Looking Ahead: Lecture 2</h3>
+<blockquote class="blockquote">
+<p><strong>Next Session: Kernel Methods and SVMs</strong> — Lecture 2 will focus on Kernel Methods and Support Vector Machines (SVM) for Time Series.</p>
+</blockquote>
+<p><strong>Topics to prepare for:</strong></p>
+<ul>
+<li>Maximum-margin learning and the Primal/Dual formulations.</li>
+<li>The “Kernel Trick” (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.</li>
+<li>Classification targets in macro/finance (e.g., recessions, stress events).</li>
+</ul>
+<p>⚠️ <em>Reminder: Reading memos for the Cortes &amp; Vapnik (1995) and Bergmeir et al.&nbsp;(2018) papers are due before the next Lecture!</em></p>
 
 
 <!-- -->
 
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -623,14 +1246,476 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Lecture 1 — Introducción a ML en Series de Tiempo"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Tu Nombre"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-01-01"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Machine Learning in Time Series"</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Prof. Marcelo Villena Ch., PhD"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="an">affiliation:</span><span class="co"> "Universidad Técnica Federico Santa María, Chile"</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Spring 2026"</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "Contenido"</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">    smooth-scroll: true</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight-style: github</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co">    html-math-method: mathjax</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Seminar Overview &amp; Mechanics</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="fu">### Seminar Objective</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **The Core Objective:** This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>**Central Themes:**</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Treating ML methods as explicit optimization/statistical objects, not black boxes.</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Proper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Shifting safely from structural identification to algorithmic risk minimization.</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="fu">### Course Mechanics &amp; Evaluation</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>**Format**</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>6 Lectures, 3 hours each.</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Structure per Lecture:** Theory &amp; derivations (\~75 min), Paper discussion (\~75 min), and a Coding lab component (\~30 min).</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Tools:** Python or R.</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>**Evaluation Metrics**</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>| Component             | Weight | Description                                                                                                           |</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>|-------------------------|-------------------|-----------------------------|</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>| Memos &amp; Participation | 25%    | 1-page reading memo due before each Lecture.                                                                          |</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>| Presentation          | 25%    | Present one syllabus paper + a 10-minute code walkthrough.                                                            |</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>| Final Project         | 50%    | 10--15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation. |</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Seminar Project</span></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **A Fixed Evaluation Protocol:** To compare methods fairly without getting lost in "cool models", the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.</span></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>**The Task:** Multi-horizon forecasting of YoY Core CPI Inflation.</span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Baselines:** Mean/AR, small VAR, (optionally BVAR).</span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Data-Rich Extension:** Later lectures will inject FRED-style predictor panels.</span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Evaluation Rule:** Strict rolling/expanding OOS, leakage-safe tuning.</span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Horizons:** $h = <span class="sc">\{</span>1, 3, 6, 12<span class="sc">\}</span>$.</span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Metrics / Tests:**</span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Forecast loss: RMSE / MAE by horizon.</span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Comparison: Diebold-Mariano test when appropriate.</span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Classification tasks: AUC / PR + calibration.</span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-67"><a href="#cb4-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### The 6-Lectures Roadmap</span></span>
+<span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>| Lecture       | Topic                                                                             |</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>|----------------------------------------|--------------------------------|</span>
+<span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>| **Lecture 1** | Historical Evolution, the Prediction Problem, and Shrinkage.                      |</span>
+<span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>| **Lecture 2** | Kernel Methods and Support Vector Machines (SVM) for Time Series.                 |</span>
+<span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>| **Lecture 3** | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, &amp; Structured Regularization). |</span>
+<span id="cb4-75"><a href="#cb4-75" aria-hidden="true" tabindex="-1"></a>| **Lecture 4** | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).           |</span>
+<span id="cb4-76"><a href="#cb4-76" aria-hidden="true" tabindex="-1"></a>| **Lecture 5** | Trees, Boosting, and Ensembles for Nonlinear Forecasting.                         |</span>
+<span id="cb4-77"><a href="#cb4-77" aria-hidden="true" tabindex="-1"></a>| **Lecture 6** | The Frontier: Attention, Text, and Causal ML.                                     |</span>
+<span id="cb4-78"><a href="#cb4-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-79"><a href="#cb4-79" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-80"><a href="#cb4-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-81"><a href="#cb4-81" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Epistemological Shift</span></span>
+<span id="cb4-82"><a href="#cb4-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-83"><a href="#cb4-83" aria-hidden="true" tabindex="-1"></a><span class="fu">### Classical Econometrics vs. Machine Learning</span></span>
+<span id="cb4-84"><a href="#cb4-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-85"><a href="#cb4-85" aria-hidden="true" tabindex="-1"></a>::: columns</span>
+<span id="cb4-86"><a href="#cb4-86" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-87"><a href="#cb4-87" aria-hidden="true" tabindex="-1"></a>**Classical Econometrics**</span>
+<span id="cb4-88"><a href="#cb4-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-89"><a href="#cb4-89" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Goal:** Recover the true DGP</span>
+<span id="cb4-90"><a href="#cb4-90" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Target:** $\mathbb{E}<span class="co">[</span><span class="ot">Y \mid do(X)</span><span class="co">]</span>$ (Causal)</span>
+<span id="cb4-91"><a href="#cb4-91" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Setting:** $T \gg p$ (Low-dimensional)</span>
+<span id="cb4-92"><a href="#cb4-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-93"><a href="#cb4-93" aria-hidden="true" tabindex="-1"></a>*Focuses on unbiasedness, parameter identification, and structural policy invariance (Lucas Critique).*</span>
+<span id="cb4-94"><a href="#cb4-94" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-95"><a href="#cb4-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-96"><a href="#cb4-96" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-97"><a href="#cb4-97" aria-hidden="true" tabindex="-1"></a>**The Algorithmic Turn**</span>
+<span id="cb4-98"><a href="#cb4-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-99"><a href="#cb4-99" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Goal:** Minimize OOS Loss</span>
+<span id="cb4-100"><a href="#cb4-100" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Target:** $\hat{f}(X) \approx \mathbb{E}<span class="co">[</span><span class="ot">Y \mid X</span><span class="co">]</span>$ (Predictive)</span>
+<span id="cb4-101"><a href="#cb4-101" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Setting:** $p \approx T$ or $p &gt; T$</span>
+<span id="cb4-102"><a href="#cb4-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-103"><a href="#cb4-103" aria-hidden="true" tabindex="-1"></a>*Focuses on generalization, variance reduction via shrinkage, and handling massive, unstructured data.*</span>
+<span id="cb4-104"><a href="#cb4-104" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **The Fourth Revolution (Villena, 2026):** ML is not a rejection of econometrics; it is an evolution forced by the data explosion, trading parameter interpretability for forecast stability.</span></span>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-109"><a href="#cb4-109" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-110"><a href="#cb4-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-111"><a href="#cb4-111" aria-hidden="true" tabindex="-1"></a><span class="fu">### Historical Context: The Four Revolutions</span></span>
+<span id="cb4-112"><a href="#cb4-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-113"><a href="#cb4-113" aria-hidden="true" tabindex="-1"></a>| Era        | Paradigm                  | Key Developments               |</span>
+<span id="cb4-114"><a href="#cb4-114" aria-hidden="true" tabindex="-1"></a>|------------|---------------------------|--------------------------------|</span>
+<span id="cb4-115"><a href="#cb4-115" aria-hidden="true" tabindex="-1"></a>| 1950s      | **Dynamic Structuralism** | Cowles Tradition               |</span>
+<span id="cb4-116"><a href="#cb4-116" aria-hidden="true" tabindex="-1"></a>| 1970s--80s | **Atheoretical Turn**     | Box-Jenkins ('70) &amp; VARs ('80) |</span>
+<span id="cb4-117"><a href="#cb4-117" aria-hidden="true" tabindex="-1"></a>| 1980s--90s | **Cointegration**         | GARCH ('82) &amp; VECM ('87+)      |</span>
+<span id="cb4-118"><a href="#cb4-118" aria-hidden="true" tabindex="-1"></a>| 2010s      | **Algorithmic**           | Regularization &amp; Deep Learning |</span>
+<span id="cb4-119"><a href="#cb4-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-120"><a href="#cb4-120" aria-hidden="true" tabindex="-1"></a>*Note: This is a highly stylized heuristic timeline. Each phase emerged to solve the empirical failures of the previous paradigm (e.g., Sims' critique leading to VARs).*</span>
+<span id="cb4-121"><a href="#cb4-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Prediction Problem &amp; Evaluation</span></span>
+<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Bias-Variance Tradeoff</span></span>
+<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>In modern macro, OLS yields $\text{Bias} \approx 0$, but Variance explodes as predictors $p \to T$. ML algorithms actively introduce bias to suppress this variance.</span>
+<span id="cb4-129"><a href="#cb4-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-130"><a href="#cb4-130" aria-hidden="true" tabindex="-1"></a>The total expected prediction error can be decomposed as:</span>
+<span id="cb4-131"><a href="#cb4-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-132"><a href="#cb4-132" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-133"><a href="#cb4-133" aria-hidden="true" tabindex="-1"></a>\text{MSE}(\hat{f}) = \text{Bias}^2(\hat{f}) + \text{Var}(\hat{f}) + \sigma^2</span>
+<span id="cb4-134"><a href="#cb4-134" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-135"><a href="#cb4-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-136"><a href="#cb4-136" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>As model complexity increases, **Bias decreases** but **Variance increases**.</span>
+<span id="cb4-137"><a href="#cb4-137" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The optimal model minimizes total error at the **regularized ML** region --- not at OLS.</span>
+<span id="cb4-138"><a href="#cb4-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-139"><a href="#cb4-139" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-140"><a href="#cb4-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-141"><a href="#cb4-141" aria-hidden="true" tabindex="-1"></a><span class="fu">### Evaluating Time Series: Avoiding Data Leakage</span></span>
+<span id="cb4-142"><a href="#cb4-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>Standard $K$-fold cross-validation fails in time series due to temporal dependence. We must use strict sequential splits to mirror real-world forecasting.</span>
+<span id="cb4-144"><a href="#cb4-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>**Expanding Window (Recursive)**</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a>Each training set grows over time, adding new observations. Mirrors a central bank utilizing all historical data. Best for stationary series.</span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb4-150"><a href="#cb4-150" aria-hidden="true" tabindex="-1"></a><span class="in">Fold 1: [Train ████░░░░] [Test █]</span></span>
+<span id="cb4-151"><a href="#cb4-151" aria-hidden="true" tabindex="-1"></a><span class="in">Fold 2: [Train █████░░░] [Test █]</span></span>
+<span id="cb4-152"><a href="#cb4-152" aria-hidden="true" tabindex="-1"></a><span class="in">Fold 3: [Train ██████░░] [Test █]</span></span>
+<span id="cb4-153"><a href="#cb4-153" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-154"><a href="#cb4-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-155"><a href="#cb4-155" aria-hidden="true" tabindex="-1"></a>**Rolling Window**</span>
+<span id="cb4-156"><a href="#cb4-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-157"><a href="#cb4-157" aria-hidden="true" tabindex="-1"></a>Training set has a fixed size that moves forward. Best when older data represents a discarded structural regime.</span>
+<span id="cb4-158"><a href="#cb4-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-159"><a href="#cb4-159" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb4-160"><a href="#cb4-160" aria-hidden="true" tabindex="-1"></a><span class="in">Fold 1: [Train ████░░░░] [Test █]</span></span>
+<span id="cb4-161"><a href="#cb4-161" aria-hidden="true" tabindex="-1"></a><span class="in">Fold 2: [░Train ████░░░] [Test █]</span></span>
+<span id="cb4-162"><a href="#cb4-162" aria-hidden="true" tabindex="-1"></a><span class="in">Fold 3: [░░Train ████░░] [Test █]</span></span>
+<span id="cb4-163"><a href="#cb4-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-164"><a href="#cb4-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-165"><a href="#cb4-165" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-166"><a href="#cb4-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-167"><a href="#cb4-167" aria-hidden="true" tabindex="-1"></a><span class="fu">## The Curse of Dimensionality &amp; Overfitting</span></span>
+<span id="cb4-168"><a href="#cb4-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-169"><a href="#cb4-169" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Limits of Classical OLS</span></span>
+<span id="cb4-170"><a href="#cb4-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-171"><a href="#cb4-171" aria-hidden="true" tabindex="-1"></a>::: columns</span>
+<span id="cb4-172"><a href="#cb4-172" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-173"><a href="#cb4-173" aria-hidden="true" tabindex="-1"></a>**What breaks OLS?**</span>
+<span id="cb4-174"><a href="#cb4-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-175"><a href="#cb4-175" aria-hidden="true" tabindex="-1"></a>Ordinary Least Squares fits a hyperplane by strictly minimizing in-sample MSE.</span>
+<span id="cb4-176"><a href="#cb4-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-177"><a href="#cb4-177" aria-hidden="true" tabindex="-1"></a>**Vulnerabilities in Modern Macro:**</span>
+<span id="cb4-178"><a href="#cb4-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-179"><a href="#cb4-179" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Highly sensitive to structural breaks and outliers.</span>
+<span id="cb4-180"><a href="#cb4-180" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Cannot handle severe multicollinearity (singular $X^\top X$).</span>
+<span id="cb4-181"><a href="#cb4-181" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Fails completely** when predictors outnumber observations ($p \gg T$).</span>
+<span id="cb4-182"><a href="#cb4-182" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-183"><a href="#cb4-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-184"><a href="#cb4-184" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-185"><a href="#cb4-185" aria-hidden="true" tabindex="-1"></a>**The Curse of Dimensionality**</span>
+<span id="cb4-186"><a href="#cb4-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-187"><a href="#cb4-187" aria-hidden="true" tabindex="-1"></a>As we add more variables (FRED-MD, text data), the mathematical volume of the data space grows exponentially.</span>
+<span id="cb4-188"><a href="#cb4-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-189"><a href="#cb4-189" aria-hidden="true" tabindex="-1"></a>Data points become extremely sparse. OLS reacts by assigning massive, unstable coefficients to "chase" the noise, destroying Out-of-Sample (OOS) predictive power.</span>
+<span id="cb4-190"><a href="#cb4-190" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-191"><a href="#cb4-191" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-192"><a href="#cb4-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-193"><a href="#cb4-193" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-194"><a href="#cb4-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-195"><a href="#cb4-195" aria-hidden="true" tabindex="-1"></a><span class="fu">### Visualizing the Problem: Overfitting</span></span>
+<span id="cb4-196"><a href="#cb4-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-197"><a href="#cb4-197" aria-hidden="true" tabindex="-1"></a>::: columns</span>
+<span id="cb4-198"><a href="#cb4-198" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-199"><a href="#cb4-199" aria-hidden="true" tabindex="-1"></a>**✅ Good Fit (Learned the DGP)**</span>
+<span id="cb4-200"><a href="#cb4-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-201"><a href="#cb4-201" aria-hidden="true" tabindex="-1"></a>The model captures the general structural trend. A simple linear fit through the data --- it performs well on unseen rolling windows.</span>
+<span id="cb4-202"><a href="#cb4-202" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-203"><a href="#cb4-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-204"><a href="#cb4-204" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-205"><a href="#cb4-205" aria-hidden="true" tabindex="-1"></a>**❌ Overfitting (Memorized the Noise)**</span>
+<span id="cb4-206"><a href="#cb4-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-207"><a href="#cb4-207" aria-hidden="true" tabindex="-1"></a>Like memorizing a practice test. $R^2 \approx 1$ in-sample, but MSE explodes out-of-sample. The model zigzags through every data point.</span>
+<span id="cb4-208"><a href="#cb4-208" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-209"><a href="#cb4-209" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-210"><a href="#cb4-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-211"><a href="#cb4-211" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-212"><a href="#cb4-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-213"><a href="#cb4-213" aria-hidden="true" tabindex="-1"></a><span class="fu">### Why Classic Rules Break: The Failure of Distance</span></span>
+<span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>**The "Magic Playground"**</span>
+<span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>Imagine playing tag in a room with **1,000 directions** to run. Because there is so much empty space, everyone runs into their own corner.</span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a>**Result:** Everyone is exactly 1 mile away from you. If everyone is the same distance, the concept of "closest" disappears!</span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a>When algorithms measure distance between 10,000 variables, the measurements become mathematically useless.</span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## Regularization: Ridge and Lasso</span></span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Solution: Regularization (Shrinkage)</span></span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-229"><a href="#cb4-229" aria-hidden="true" tabindex="-1"></a>To survive high-dimensional environments ($p \gg T$), we must enforce **mathematical discipline** to control bias.</span>
+<span id="cb4-230"><a href="#cb4-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-231"><a href="#cb4-231" aria-hidden="true" tabindex="-1"></a>Instead of just minimizing empirical error, we minimize the error **PLUS** a penalty for complexity:</span>
+<span id="cb4-232"><a href="#cb4-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-233"><a href="#cb4-233" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-234"><a href="#cb4-234" aria-hidden="true" tabindex="-1"></a>\hat{\beta} = \arg\min_{\beta} \left<span class="sc">\{</span> \mathcal{L}(Y, X\beta) + \lambda \cdot \mathcal{P}(\beta) \right<span class="sc">\}</span></span>
+<span id="cb4-235"><a href="#cb4-235" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-236"><a href="#cb4-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-237"><a href="#cb4-237" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>$\lambda \ge 0$ is the tuning parameter controlling the severity of the penalty.</span>
+<span id="cb4-238"><a href="#cb4-238" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>By forcing the model to generate smaller parameters, we trade a small amount of **bias** for a massive reduction in **variance**.</span>
+<span id="cb4-239"><a href="#cb4-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-240"><a href="#cb4-240" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-241"><a href="#cb4-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-242"><a href="#cb4-242" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ridge Regression ($L_2$ Regularization)</span></span>
+<span id="cb4-243"><a href="#cb4-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-244"><a href="#cb4-244" aria-hidden="true" tabindex="-1"></a>**Ridge Regression** adds a squared Euclidean norm penalty to the objective:</span>
+<span id="cb4-245"><a href="#cb4-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-246"><a href="#cb4-246" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-247"><a href="#cb4-247" aria-hidden="true" tabindex="-1"></a>\hat{\beta}_{\text{Ridge}} = \arg\min_{\beta} \left\{ \frac{1}{2T} \|Y - X\beta\|_2^2 + \lambda \sum_{j=1}^p \beta_j^2 \right<span class="sc">\}</span></span>
+<span id="cb4-248"><a href="#cb4-248" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-249"><a href="#cb4-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-250"><a href="#cb4-250" aria-hidden="true" tabindex="-1"></a>**Key Properties:**</span>
+<span id="cb4-251"><a href="#cb4-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-252"><a href="#cb4-252" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Smooth Shrinkage:** Pulls coefficients toward zero smoothly, but rarely reaches exactly zero.</span>
+<span id="cb4-253"><a href="#cb4-253" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Analytic Solution:** Easily solved via linear algebra:</span>
+<span id="cb4-254"><a href="#cb4-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-255"><a href="#cb4-255" aria-hidden="true" tabindex="-1"></a>$$\hat{\beta}_{\text{Ridge}} = (X^\top X + \lambda I)^{-1} X^\top Y$$</span>
+<span id="cb4-256"><a href="#cb4-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-257"><a href="#cb4-257" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Econometric Link:** Mathematically equivalent to a Bayesian VAR (BVAR) with a Gaussian prior centered at zero (e.g., Minnesota Prior).</span>
+<span id="cb4-258"><a href="#cb4-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-259"><a href="#cb4-259" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-260"><a href="#cb4-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-261"><a href="#cb4-261" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lasso: Penalized vs. Constrained Formulation</span></span>
+<span id="cb4-262"><a href="#cb4-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-263"><a href="#cb4-263" aria-hidden="true" tabindex="-1"></a>The Lasso ($L_1$) estimator can be mathematically expressed in two equivalent forms:</span>
+<span id="cb4-264"><a href="#cb4-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-265"><a href="#cb4-265" aria-hidden="true" tabindex="-1"></a>**1. The Penalized Form:**</span>
+<span id="cb4-266"><a href="#cb4-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-267"><a href="#cb4-267" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-268"><a href="#cb4-268" aria-hidden="true" tabindex="-1"></a>\min_{\beta} \left<span class="sc">\{</span> \frac{1}{2T} \|y - X\beta\|_2^2 + \lambda \|\beta\|_1 \right<span class="sc">\}</span></span>
+<span id="cb4-269"><a href="#cb4-269" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-270"><a href="#cb4-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-271"><a href="#cb4-271" aria-hidden="true" tabindex="-1"></a>*Here,* $\lambda \geq 0$ acts as the penalty weight controlling the shrinkage intensity.</span>
+<span id="cb4-272"><a href="#cb4-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-273"><a href="#cb4-273" aria-hidden="true" tabindex="-1"></a>**2. The Constrained Form:**</span>
+<span id="cb4-274"><a href="#cb4-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-275"><a href="#cb4-275" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-276"><a href="#cb4-276" aria-hidden="true" tabindex="-1"></a>\min_{\beta} \left<span class="sc">\{</span> \frac{1}{2T} \|y - X\beta\|_2^2 \right\} \quad \text{s.t.} \quad \|\beta\|_1 \leq t</span>
+<span id="cb4-277"><a href="#cb4-277" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb4-278"><a href="#cb4-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-279"><a href="#cb4-279" aria-hidden="true" tabindex="-1"></a>*Here,* $t \geq 0$ acts as an absolute "budget" for the coefficients. The KKT conditions establish that for every budget $t$, there exists a corresponding penalty $\lambda$.</span>
+<span id="cb4-280"><a href="#cb4-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-281"><a href="#cb4-281" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-282"><a href="#cb4-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-283"><a href="#cb4-283" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Geometry of Shrinkage</span></span>
+<span id="cb4-284"><a href="#cb4-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-285"><a href="#cb4-285" aria-hidden="true" tabindex="-1"></a>Why does Lasso select variables ($\beta_j = 0$) while Ridge does not?</span>
+<span id="cb4-286"><a href="#cb4-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-287"><a href="#cb4-287" aria-hidden="true" tabindex="-1"></a>::: columns</span>
+<span id="cb4-288"><a href="#cb4-288" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-289"><a href="#cb4-289" aria-hidden="true" tabindex="-1"></a>**Lasso (**$L_1$ Diamond)</span>
+<span id="cb4-290"><a href="#cb4-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-291"><a href="#cb4-291" aria-hidden="true" tabindex="-1"></a>The feasible region is a diamond shape with sharp corners. The loss function contours tend to hit exactly on a corner (axis), forcing one coefficient to zero.</span>
+<span id="cb4-292"><a href="#cb4-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-293"><a href="#cb4-293" aria-hidden="true" tabindex="-1"></a>*The sharp corners mean the contour hits exactly on an axis (*$\beta_1 = 0$).</span>
+<span id="cb4-294"><a href="#cb4-294" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-295"><a href="#cb4-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-296"><a href="#cb4-296" aria-hidden="true" tabindex="-1"></a>::: {.column width="48%"}</span>
+<span id="cb4-297"><a href="#cb4-297" aria-hidden="true" tabindex="-1"></a>**Ridge (**$L_2$ Circle)</span>
+<span id="cb4-298"><a href="#cb4-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-299"><a href="#cb4-299" aria-hidden="true" tabindex="-1"></a>The feasible region is a smooth circle. The loss function contours intersect the boundary off the axis, shrinking both coefficients without eliminating either.</span>
+<span id="cb4-300"><a href="#cb4-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-301"><a href="#cb4-301" aria-hidden="true" tabindex="-1"></a>*The circular boundary intersects off the axis, shrinking both without eliminating either.*</span>
+<span id="cb4-302"><a href="#cb4-302" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-303"><a href="#cb4-303" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb4-304"><a href="#cb4-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-305"><a href="#cb4-305" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-306"><a href="#cb4-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-307"><a href="#cb4-307" aria-hidden="true" tabindex="-1"></a><span class="fu">### The Mathematical Logic of the Penalties</span></span>
+<span id="cb4-308"><a href="#cb4-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-309"><a href="#cb4-309" aria-hidden="true" tabindex="-1"></a>Let's look at a numerical example to see how the penalties behave differently.</span>
+<span id="cb4-310"><a href="#cb4-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a>Suppose our current coefficients are $\beta = <span class="co">[</span><span class="ot">10, 5</span><span class="co">]</span>$. What happens if the optimizer reduces the first parameter by exactly 1 unit (to 9)?</span>
+<span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-313"><a href="#cb4-313" aria-hidden="true" tabindex="-1"></a>| Scenario           | Ridge ($L_2$) Penalty $\left(\sum \beta_i^2\right)$ | Lasso ($L_1$) Penalty $\left(\sum |\beta_i|\right)$ |</span>
+<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a>|--------------------------------|--------------------|--------------------|</span>
+<span id="cb4-315"><a href="#cb4-315" aria-hidden="true" tabindex="-1"></a>| Initial: $<span class="co">[</span><span class="ot">10, 5</span><span class="co">]</span>$ | $10^2 + 5^2 = 125$                                  | $10 + 5 = 15$                                       |</span>
+<span id="cb4-316"><a href="#cb4-316" aria-hidden="true" tabindex="-1"></a>| New: $<span class="co">[</span><span class="ot">9, 5</span><span class="co">]</span>$      | $9^2 + 5^2 = 106$                                   | $9 + 5 = 14$                                        |</span>
+<span id="cb4-317"><a href="#cb4-317" aria-hidden="true" tabindex="-1"></a>| **Reduction Size** | **−19**                                             | **−1**                                              |</span>
+<span id="cb4-318"><a href="#cb4-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-319"><a href="#cb4-319" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Insight:** Ridge prioritizes shrinking **large** parameters because squaring large numbers increases the penalty exponentially. Lasso treats all unit reductions equally, allowing it to push a parameter to exactly zero.</span></span>
+<span id="cb4-320"><a href="#cb4-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-321"><a href="#cb4-321" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-322"><a href="#cb4-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-323"><a href="#cb4-323" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary Comparison</span></span>
+<span id="cb4-324"><a href="#cb4-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-325"><a href="#cb4-325" aria-hidden="true" tabindex="-1"></a>| Feature                    | Ridge ($L_2$)                         | Lasso ($L_1$)                           |</span>
+<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a>|------------------|---------------------------|---------------------------|</span>
+<span id="cb4-327"><a href="#cb4-327" aria-hidden="true" tabindex="-1"></a>| **Primary Goal**           | Handle multicollinearity &amp; stabilize  | Feature selection &amp; simplicity          |</span>
+<span id="cb4-328"><a href="#cb4-328" aria-hidden="true" tabindex="-1"></a>| **Resulting Model**        | All features included (small weights) | Sparse model (irrelevant features = 0)  |</span>
+<span id="cb4-329"><a href="#cb4-329" aria-hidden="true" tabindex="-1"></a>| **Computational Solution** | Closed-form (Matrix algebra)          | Numerical optimization (Iterative)      |</span>
+<span id="cb4-330"><a href="#cb4-330" aria-hidden="true" tabindex="-1"></a>| **Bias-Variance Tradeoff** | Lower variance, slightly higher bias  | Lower variance, potentially higher bias |</span>
+<span id="cb4-331"><a href="#cb4-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-332"><a href="#cb4-332" aria-hidden="true" tabindex="-1"></a>*Both models are essential tools for modern econometricians navigating data-rich (*$p \gg T$) environments!</span>
+<span id="cb4-333"><a href="#cb4-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-334"><a href="#cb4-334" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-335"><a href="#cb4-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-336"><a href="#cb4-336" aria-hidden="true" tabindex="-1"></a><span class="fu">## Readings &amp; Lecture 1 Mini-Lab</span></span>
+<span id="cb4-337"><a href="#cb4-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-338"><a href="#cb4-338" aria-hidden="true" tabindex="-1"></a><span class="fu">### Required &amp; Recommended Readings</span></span>
+<span id="cb4-339"><a href="#cb4-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-340"><a href="#cb4-340" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Villena (2026):** *From Lagged Effects to Algorithmic Prediction.* Sets the historical framing for the "Four Revolutions" and the shift toward algorithmic prediction.</span>
+<span id="cb4-341"><a href="#cb4-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-342"><a href="#cb4-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Masini, Medeiros, &amp; Mendes (2023):** *Machine learning advances for time series forecasting.* Crucial for understanding evaluation under temporal dependence.</span>
+<span id="cb4-343"><a href="#cb4-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-344"><a href="#cb4-344" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**De Mol, Giannone, &amp; Reichlin (2008) \[Recommended\]:** *Forecasting using a large number of predictors...* Demonstrates that when data is highly collinear, Ridge regression and factor models (e.g. PCA) are deeply connected and solve the curse of dimensionality effectively.</span>
+<span id="cb4-345"><a href="#cb4-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-346"><a href="#cb4-346" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-347"><a href="#cb4-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-348"><a href="#cb4-348" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lecture 1 Mini-Lab: Leakage-Safe Shrinkage</span></span>
+<span id="cb4-349"><a href="#cb4-349" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-350"><a href="#cb4-350" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **The Project Task:** Build a leakage-safe Ridge/Lasso forecast for US YoY CPI (our canonical target) and compare it to a classical OLS benchmark using provided starter code.</span></span>
+<span id="cb4-351"><a href="#cb4-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-352"><a href="#cb4-352" aria-hidden="true" tabindex="-1"></a>**Two R Scripts are provided for this lab:**</span>
+<span id="cb4-353"><a href="#cb4-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-354"><a href="#cb4-354" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>**Script 1 (Baseline):** A static train-test split to introduce the <span class="in">`glmnet`</span> syntax and AR($p$) feature engineering.</span>
+<span id="cb4-355"><a href="#cb4-355" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>**Script 2 (The Protocol):** A rigorous $h$-step ahead direct forecasting loop using rolling windows across multiple horizons.</span>
+<span id="cb4-356"><a href="#cb4-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-357"><a href="#cb4-357" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-358"><a href="#cb4-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-359"><a href="#cb4-359" aria-hidden="true" tabindex="-1"></a><span class="fu">### Understanding Script 1: The Baseline AR(12) Pipeline</span></span>
+<span id="cb4-360"><a href="#cb4-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-361"><a href="#cb4-361" aria-hidden="true" tabindex="-1"></a>**Core Mechanics of the Script:**</span>
+<span id="cb4-362"><a href="#cb4-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-363"><a href="#cb4-363" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Feature Construction:** We use <span class="in">`embed(inflation, p + 1)`</span> to automatically construct the $\mathbf{X}$ matrix of $t-1 \dots t-12$ lags without manual looping.</span>
+<span id="cb4-364"><a href="#cb4-364" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Temporal Split:** We strictly split the data at the 80% mark (<span class="in">`1:split_index`</span>). *No random sampling is used* to prevent future information leaking into the training set.</span>
+<span id="cb4-365"><a href="#cb4-365" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Tuning** $\lambda$: The function <span class="in">`cv.glmnet(x_train, y_train)`</span> performs $k$-fold cross-validation to find <span class="in">`lambda.min`</span>.</span>
+<span id="cb4-366"><a href="#cb4-366" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>⚠️ **Important Note:** We use standard $k$-fold here *only* to introduce the syntax. Because random $k$-fold breaks temporal order, all substantive results must use rolling/blocked CV or a time-ordered validation scheme!</span>
+<span id="cb4-367"><a href="#cb4-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-368"><a href="#cb4-368" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-369"><a href="#cb4-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-370"><a href="#cb4-370" aria-hidden="true" tabindex="-1"></a><span class="fu">### Understanding Script 2: Rolling Windows &amp; Direct Forecast</span></span>
+<span id="cb4-371"><a href="#cb4-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-372"><a href="#cb4-372" aria-hidden="true" tabindex="-1"></a>The second script implements our Seminar Project evaluation protocol:</span>
+<span id="cb4-373"><a href="#cb4-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-374"><a href="#cb4-374" aria-hidden="true" tabindex="-1"></a>**1. Direct** $h$-step Ahead Forecasting:</span>
+<span id="cb4-375"><a href="#cb4-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-376"><a href="#cb4-376" aria-hidden="true" tabindex="-1"></a>Instead of forecasting $t+1$ and iterating to $t+h$, we model $y_{t+h}$ directly as a function of $X_t$. The script shifts the feature index back by $h$:</span>
+<span id="cb4-377"><a href="#cb4-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-378"><a href="#cb4-378" aria-hidden="true" tabindex="-1"></a><span class="in">``` r</span></span>
+<span id="cb4-379"><a href="#cb4-379" aria-hidden="true" tabindex="-1"></a>train_feature_idx <span class="ot">&lt;-</span> train_target_idx <span class="sc">-</span> h</span>
+<span id="cb4-380"><a href="#cb4-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb4-381"><a href="#cb4-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-382"><a href="#cb4-382" aria-hidden="true" tabindex="-1"></a>**2. The Rolling Loop:**</span>
+<span id="cb4-383"><a href="#cb4-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-384"><a href="#cb4-384" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Outer Loops:** Iterate over forecast horizons ($h = 1, 3, 6, 12$) and window sizes ($T = 60, 120$ months).</span>
+<span id="cb4-385"><a href="#cb4-385" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Inner Loop (`step in 1:OOS_steps`):** Moves the training window forward exactly one month at a time, retraining the OLS, Ridge, and Lasso models at every single step before predicting exactly one out-of-sample data point.</span>
+<span id="cb4-386"><a href="#cb4-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-387"><a href="#cb4-387" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-388"><a href="#cb4-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-389"><a href="#cb4-389" aria-hidden="true" tabindex="-1"></a><span class="fu">## Mini-Lab: Empirical Results &amp; Commentary</span></span>
+<span id="cb4-390"><a href="#cb4-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-391"><a href="#cb4-391" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lab Results: The Baseline AR(12) Split</span></span>
+<span id="cb4-392"><a href="#cb4-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-393"><a href="#cb4-393" aria-hidden="true" tabindex="-1"></a>| Model                 | RMSE   |</span>
+<span id="cb4-394"><a href="#cb4-394" aria-hidden="true" tabindex="-1"></a>|-----------------------|--------|</span>
+<span id="cb4-395"><a href="#cb4-395" aria-hidden="true" tabindex="-1"></a>| Standard AR(12) (OLS) | 0.1865 |</span>
+<span id="cb4-396"><a href="#cb4-396" aria-hidden="true" tabindex="-1"></a>| Lasso AR(12) (L1)     | 0.1959 |</span>
+<span id="cb4-397"><a href="#cb4-397" aria-hidden="true" tabindex="-1"></a>| Ridge AR(12) (L2)     | 0.3297 |</span>
+<span id="cb4-398"><a href="#cb4-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-399"><a href="#cb4-399" aria-hidden="true" tabindex="-1"></a>⚠️ **Note:** Baseline RMSE uses k-fold tuning for illustration; do not interpret it as leakage-robust.</span>
+<span id="cb4-400"><a href="#cb4-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-401"><a href="#cb4-401" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Why did OLS win?** In a low-dimensional setting where the model is well-specified and variance is already moderate, shrinkage can add bias *without* providing enough variance reduction to improve OOS RMSE.</span></span>
+<span id="cb4-402"><a href="#cb4-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-403"><a href="#cb4-403" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lab Results: Rolling Windows &amp; Long Horizons</span></span>
+<span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a><span class="al">![OLS vs. ML Shrinkage — Rolling Window Results](../images/OLS vs. ML Shrinkage.png)</span></span>
+<span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a>**When Machine Learning saves the forecast:**</span>
+<span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-411"><a href="#cb4-411" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Long Horizons (**$h=12$): Signal-to-noise ratio drops. OLS overfits to noise, causing RMSE to explode.</span>
+<span id="cb4-412"><a href="#cb4-412" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Small Windows (**$T=60$): With only 5 observations per parameter, OLS variance becomes unstable.</span>
+<span id="cb4-413"><a href="#cb4-413" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The ML Edge:** Ridge and Lasso act as "insurance." By penalizing large coefficients, they stabilize the model during volatile periods or when degrees of freedom are scarce.</span>
+<span id="cb4-414"><a href="#cb4-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-415"><a href="#cb4-415" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; *Takeaway: Shrinkage is a requirement for stability, not just an option.*</span></span>
+<span id="cb4-416"><a href="#cb4-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-417"><a href="#cb4-417" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-418"><a href="#cb4-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-419"><a href="#cb4-419" aria-hidden="true" tabindex="-1"></a><span class="fu">### Is Inflation "Linear" and "Stationary"? Implications for Forecasting and Shrinkage</span></span>
+<span id="cb4-420"><a href="#cb4-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-421"><a href="#cb4-421" aria-hidden="true" tabindex="-1"></a>**Key point:** Treating YoY CPI inflation as strictly linear and stationary is often a useful *local approximation*, but it is not a safe global assumption for forecasting or policy inference.</span>
+<span id="cb4-422"><a href="#cb4-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-423"><a href="#cb4-423" aria-hidden="true" tabindex="-1"></a>**1) Stationarity: what is plausibly true.**</span>
+<span id="cb4-424"><a href="#cb4-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-425"><a href="#cb4-425" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Monthly CPI levels are nonstationary; YoY inflation is *more* stable and can look stationary in long samples.</span>
+<span id="cb4-426"><a href="#cb4-426" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Still, inflation exhibits **persistent dynamics**, **time-varying volatility** and **structural breaks** (policy regimes, supply shocks, measurement/revisions).</span>
+<span id="cb4-427"><a href="#cb4-427" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-428"><a href="#cb4-428" aria-hidden="true" tabindex="-1"></a>**2) Linearity: what is plausibly true.**</span>
+<span id="cb4-429"><a href="#cb4-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-430"><a href="#cb4-430" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>An AR(12) is a linear conditional-mean model; it can fit well when dynamics are stable.</span>
+<span id="cb4-431"><a href="#cb4-431" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Nonlinearities can arise from **regime dependence** (high vs low inflation), **asymmetric responses** to shocks, and **changing persistence**.</span>
+<span id="cb4-432"><a href="#cb4-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-433"><a href="#cb4-433" aria-hidden="true" tabindex="-1"></a>**3) Why OLS may beat Ridge/Lasso in your AR(12).**</span>
+<span id="cb4-434"><a href="#cb4-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-435"><a href="#cb4-435" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>With only $p=12$ regressors and decent $T$, OLS variance is already low; shrinkage adds bias and may not reduce RMSE.</span>
+<span id="cb4-436"><a href="#cb4-436" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>If $\lambda$ is tuned with random $k$-fold CV, time-order is violated and results can be distorted; use rolling/blocked tuning.</span>
+<span id="cb4-437"><a href="#cb4-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-438"><a href="#cb4-438" aria-hidden="true" tabindex="-1"></a>**4) What to do in practice (seminar rule).**</span>
+<span id="cb4-439"><a href="#cb4-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-440"><a href="#cb4-440" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Diagnose: unit-root tests + break tests; check stability with rolling estimates; examine residual autocorrelation and heteroskedasticity.</span>
+<span id="cb4-441"><a href="#cb4-441" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Evaluate honestly: rolling/expanding OOS, multi-horizon loss (RMSE/MAE), and (when relevant) forecast comparison tests.</span>
+<span id="cb4-442"><a href="#cb4-442" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Expect ML gains mainly in **data-rich**, **unstable**, or **nonlinear** environments (many predictors, regime shifts, interactions).</span>
+<span id="cb4-443"><a href="#cb4-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-444"><a href="#cb4-444" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-445"><a href="#cb4-445" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-446"><a href="#cb4-446" aria-hidden="true" tabindex="-1"></a><span class="fu">## Concluding Remarks</span></span>
+<span id="cb4-447"><a href="#cb4-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-448"><a href="#cb4-448" aria-hidden="true" tabindex="-1"></a><span class="fu">### Project: 10-Minute Check-In</span></span>
+<span id="cb4-449"><a href="#cb4-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-450"><a href="#cb4-450" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Our Standard Closing Questions:** 1. What changed in OOS RMSE by horizon? 2. Which failure mode did we fix (or create)?</span></span>
+<span id="cb4-451"><a href="#cb4-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-452"><a href="#cb4-452" aria-hidden="true" tabindex="-1"></a>**Today's Answers:**</span>
+<span id="cb4-453"><a href="#cb4-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-454"><a href="#cb4-454" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**RMSE Shift:** OLS dominated $h=1$ and large windows ($T=120$). ML Shrinkage drastically improved $h=12$ on small windows ($T=60$).</span>
+<span id="cb4-455"><a href="#cb4-455" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Failure Mode Fixed:** We fixed the variance explosion of OLS in data-scarce, long-horizon settings.</span>
+<span id="cb4-456"><a href="#cb4-456" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**Failure Mode Created:** We introduced bias. In highly stable, low-dimensional settings, Ridge/Lasso mathematically underperformed OLS.</span>
+<span id="cb4-457"><a href="#cb4-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-458"><a href="#cb4-458" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb4-459"><a href="#cb4-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-460"><a href="#cb4-460" aria-hidden="true" tabindex="-1"></a><span class="fu">### Looking Ahead: Lecture 2</span></span>
+<span id="cb4-461"><a href="#cb4-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-462"><a href="#cb4-462" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; **Next Session: Kernel Methods and SVMs** --- Lecture 2 will focus on Kernel Methods and Support Vector Machines (SVM) for Time Series.</span></span>
+<span id="cb4-463"><a href="#cb4-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-464"><a href="#cb4-464" aria-hidden="true" tabindex="-1"></a>**Topics to prepare for:**</span>
+<span id="cb4-465"><a href="#cb4-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-466"><a href="#cb4-466" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Maximum-margin learning and the Primal/Dual formulations.</span>
+<span id="cb4-467"><a href="#cb4-467" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The "Kernel Trick" (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.</span>
+<span id="cb4-468"><a href="#cb4-468" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Classification targets in macro/finance (e.g., recessions, stress events).</span>
+<span id="cb4-469"><a href="#cb4-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-470"><a href="#cb4-470" aria-hidden="true" tabindex="-1"></a>⚠️ *Reminder: Reading memos for the Cortes &amp; Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!*</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">

@@ -1,8 +1,470 @@
 ---
-title: "Lecture 1 — Introducción a ML en Series de Tiempo"
-author: "Tu Nombre"
-date: "2025-01-01"
+title: "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage"
+subtitle: "Machine Learning in Time Series"
+author: "Prof. Marcelo Villena Ch., PhD"
+affiliation: "Universidad Técnica Federico Santa María, Chile"
+date: "Spring 2026"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    html-math-method: mathjax
 ---
+
+## Seminar Overview & Mechanics
+
+### Seminar Objective
+
+> **The Core Objective:** This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.
+
+**Central Themes:**
+
+-   Treating ML methods as explicit optimization/statistical objects, not black boxes.
+-   Proper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.
+-   Shifting safely from structural identification to algorithmic risk minimization.
+
+------------------------------------------------------------------------
+
+### Course Mechanics & Evaluation
+
+**Format**
+
+-   6 Lectures, 3 hours each.
+-   **Structure per Lecture:** Theory & derivations (\~75 min), Paper discussion (\~75 min), and a Coding lab component (\~30 min).
+-   **Tools:** Python or R.
+
+**Evaluation Metrics**
+
+| Component             | Weight | Description                                                                                                           |
+|-------------------------|-------------------|-----------------------------|
+| Memos & Participation | 25%    | 1-page reading memo due before each Lecture.                                                                          |
+| Presentation          | 25%    | Present one syllabus paper + a 10-minute code walkthrough.                                                            |
+| Final Project         | 50%    | 10--15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation. |
+
+------------------------------------------------------------------------
+
+### The Seminar Project
+
+> **A Fixed Evaluation Protocol:** To compare methods fairly without getting lost in "cool models", the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.
+
+**The Task:** Multi-horizon forecasting of YoY Core CPI Inflation.
+
+-   **Baselines:** Mean/AR, small VAR, (optionally BVAR).
+-   **Data-Rich Extension:** Later lectures will inject FRED-style predictor panels.
+-   **Evaluation Rule:** Strict rolling/expanding OOS, leakage-safe tuning.
+-   **Horizons:** $h = \{1, 3, 6, 12\}$.
+-   **Metrics / Tests:**
+    -   Forecast loss: RMSE / MAE by horizon.
+    -   Comparison: Diebold-Mariano test when appropriate.
+    -   Classification tasks: AUC / PR + calibration.
+
+------------------------------------------------------------------------
+
+### The 6-Lectures Roadmap
+
+| Lecture       | Topic                                                                             |
+|----------------------------------------|--------------------------------|
+| **Lecture 1** | Historical Evolution, the Prediction Problem, and Shrinkage.                      |
+| **Lecture 2** | Kernel Methods and Support Vector Machines (SVM) for Time Series.                 |
+| **Lecture 3** | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization). |
+| **Lecture 4** | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).           |
+| **Lecture 5** | Trees, Boosting, and Ensembles for Nonlinear Forecasting.                         |
+| **Lecture 6** | The Frontier: Attention, Text, and Causal ML.                                     |
+
+------------------------------------------------------------------------
+
+## The Epistemological Shift
+
+### Classical Econometrics vs. Machine Learning
+
+::: columns
+::: {.column width="48%"}
+**Classical Econometrics**
+
+-   **Goal:** Recover the true DGP
+-   **Target:** $\mathbb{E}[Y \mid do(X)]$ (Causal)
+-   **Setting:** $T \gg p$ (Low-dimensional)
+
+*Focuses on unbiasedness, parameter identification, and structural policy invariance (Lucas Critique).*
+:::
+
+::: {.column width="48%"}
+**The Algorithmic Turn**
+
+-   **Goal:** Minimize OOS Loss
+-   **Target:** $\hat{f}(X) \approx \mathbb{E}[Y \mid X]$ (Predictive)
+-   **Setting:** $p \approx T$ or $p > T$
+
+*Focuses on generalization, variance reduction via shrinkage, and handling massive, unstructured data.*
+:::
+:::
+
+> **The Fourth Revolution (Villena, 2026):** ML is not a rejection of econometrics; it is an evolution forced by the data explosion, trading parameter interpretability for forecast stability.
+
+------------------------------------------------------------------------
+
+### Historical Context: The Four Revolutions
+
+| Era        | Paradigm                  | Key Developments               |
+|------------|---------------------------|--------------------------------|
+| 1950s      | **Dynamic Structuralism** | Cowles Tradition               |
+| 1970s--80s | **Atheoretical Turn**     | Box-Jenkins ('70) & VARs ('80) |
+| 1980s--90s | **Cointegration**         | GARCH ('82) & VECM ('87+)      |
+| 2010s      | **Algorithmic**           | Regularization & Deep Learning |
+
+*Note: This is a highly stylized heuristic timeline. Each phase emerged to solve the empirical failures of the previous paradigm (e.g., Sims' critique leading to VARs).*
+
+------------------------------------------------------------------------
+
+## The Prediction Problem & Evaluation
+
+### The Bias-Variance Tradeoff
+
+In modern macro, OLS yields $\text{Bias} \approx 0$, but Variance explodes as predictors $p \to T$. ML algorithms actively introduce bias to suppress this variance.
+
+The total expected prediction error can be decomposed as:
+
+$$
+\text{MSE}(\hat{f}) = \text{Bias}^2(\hat{f}) + \text{Var}(\hat{f}) + \sigma^2
+$$
+
+-   As model complexity increases, **Bias decreases** but **Variance increases**.
+-   The optimal model minimizes total error at the **regularized ML** region --- not at OLS.
+
+------------------------------------------------------------------------
+
+### Evaluating Time Series: Avoiding Data Leakage
+
+Standard $K$-fold cross-validation fails in time series due to temporal dependence. We must use strict sequential splits to mirror real-world forecasting.
+
+**Expanding Window (Recursive)**
+
+Each training set grows over time, adding new observations. Mirrors a central bank utilizing all historical data. Best for stationary series.
+
+```         
+Fold 1: [Train ████░░░░] [Test █]
+Fold 2: [Train █████░░░] [Test █]
+Fold 3: [Train ██████░░] [Test █]
+```
+
+**Rolling Window**
+
+Training set has a fixed size that moves forward. Best when older data represents a discarded structural regime.
+
+```         
+Fold 1: [Train ████░░░░] [Test █]
+Fold 2: [░Train ████░░░] [Test █]
+Fold 3: [░░Train ████░░] [Test █]
+```
+
+------------------------------------------------------------------------
+
+## The Curse of Dimensionality & Overfitting
+
+### The Limits of Classical OLS
+
+::: columns
+::: {.column width="48%"}
+**What breaks OLS?**
+
+Ordinary Least Squares fits a hyperplane by strictly minimizing in-sample MSE.
+
+**Vulnerabilities in Modern Macro:**
+
+-   Highly sensitive to structural breaks and outliers.
+-   Cannot handle severe multicollinearity (singular $X^\top X$).
+-   **Fails completely** when predictors outnumber observations ($p \gg T$).
+:::
+
+::: {.column width="48%"}
+**The Curse of Dimensionality**
+
+As we add more variables (FRED-MD, text data), the mathematical volume of the data space grows exponentially.
+
+Data points become extremely sparse. OLS reacts by assigning massive, unstable coefficients to "chase" the noise, destroying Out-of-Sample (OOS) predictive power.
+:::
+:::
+
+------------------------------------------------------------------------
+
+### Visualizing the Problem: Overfitting
+
+::: columns
+::: {.column width="48%"}
+**✅ Good Fit (Learned the DGP)**
+
+The model captures the general structural trend. A simple linear fit through the data --- it performs well on unseen rolling windows.
+:::
+
+::: {.column width="48%"}
+**❌ Overfitting (Memorized the Noise)**
+
+Like memorizing a practice test. $R^2 \approx 1$ in-sample, but MSE explodes out-of-sample. The model zigzags through every data point.
+:::
+:::
+
+------------------------------------------------------------------------
+
+### Why Classic Rules Break: The Failure of Distance
+
+**The "Magic Playground"**
+
+Imagine playing tag in a room with **1,000 directions** to run. Because there is so much empty space, everyone runs into their own corner.
+
+**Result:** Everyone is exactly 1 mile away from you. If everyone is the same distance, the concept of "closest" disappears!
+
+When algorithms measure distance between 10,000 variables, the measurements become mathematically useless.
+
+------------------------------------------------------------------------
+
+## Regularization: Ridge and Lasso
+
+### The Solution: Regularization (Shrinkage)
+
+To survive high-dimensional environments ($p \gg T$), we must enforce **mathematical discipline** to control bias.
+
+Instead of just minimizing empirical error, we minimize the error **PLUS** a penalty for complexity:
+
+$$
+\hat{\beta} = \arg\min_{\beta} \left\{ \mathcal{L}(Y, X\beta) + \lambda \cdot \mathcal{P}(\beta) \right\}
+$$
+
+-   $\lambda \ge 0$ is the tuning parameter controlling the severity of the penalty.
+-   By forcing the model to generate smaller parameters, we trade a small amount of **bias** for a massive reduction in **variance**.
+
+------------------------------------------------------------------------
+
+### Ridge Regression ($L_2$ Regularization)
+
+**Ridge Regression** adds a squared Euclidean norm penalty to the objective:
+
+$$
+\hat{\beta}_{\text{Ridge}} = \arg\min_{\beta} \left\{ \frac{1}{2T} \|Y - X\beta\|_2^2 + \lambda \sum_{j=1}^p \beta_j^2 \right\}
+$$
+
+**Key Properties:**
+
+-   **Smooth Shrinkage:** Pulls coefficients toward zero smoothly, but rarely reaches exactly zero.
+-   **Analytic Solution:** Easily solved via linear algebra:
+
+$$\hat{\beta}_{\text{Ridge}} = (X^\top X + \lambda I)^{-1} X^\top Y$$
+
+-   **Econometric Link:** Mathematically equivalent to a Bayesian VAR (BVAR) with a Gaussian prior centered at zero (e.g., Minnesota Prior).
+
+------------------------------------------------------------------------
+
+### Lasso: Penalized vs. Constrained Formulation
+
+The Lasso ($L_1$) estimator can be mathematically expressed in two equivalent forms:
+
+**1. The Penalized Form:**
+
+$$
+\min_{\beta} \left\{ \frac{1}{2T} \|y - X\beta\|_2^2 + \lambda \|\beta\|_1 \right\}
+$$
+
+*Here,* $\lambda \geq 0$ acts as the penalty weight controlling the shrinkage intensity.
+
+**2. The Constrained Form:**
+
+$$
+\min_{\beta} \left\{ \frac{1}{2T} \|y - X\beta\|_2^2 \right\} \quad \text{s.t.} \quad \|\beta\|_1 \leq t
+$$
+
+*Here,* $t \geq 0$ acts as an absolute "budget" for the coefficients. The KKT conditions establish that for every budget $t$, there exists a corresponding penalty $\lambda$.
+
+------------------------------------------------------------------------
+
+### The Geometry of Shrinkage
+
+Why does Lasso select variables ($\beta_j = 0$) while Ridge does not?
+
+::: columns
+::: {.column width="48%"}
+**Lasso (**$L_1$ Diamond)
+
+The feasible region is a diamond shape with sharp corners. The loss function contours tend to hit exactly on a corner (axis), forcing one coefficient to zero.
+
+*The sharp corners mean the contour hits exactly on an axis (*$\beta_1 = 0$).
+:::
+
+::: {.column width="48%"}
+**Ridge (**$L_2$ Circle)
+
+The feasible region is a smooth circle. The loss function contours intersect the boundary off the axis, shrinking both coefficients without eliminating either.
+
+*The circular boundary intersects off the axis, shrinking both without eliminating either.*
+:::
+:::
+
+------------------------------------------------------------------------
+
+### The Mathematical Logic of the Penalties
+
+Let's look at a numerical example to see how the penalties behave differently.
+
+Suppose our current coefficients are $\beta = [10, 5]$. What happens if the optimizer reduces the first parameter by exactly 1 unit (to 9)?
+
+| Scenario           | Ridge ($L_2$) Penalty $\left(\sum \beta_i^2\right)$ | Lasso ($L_1$) Penalty $\left(\sum |\beta_i|\right)$ |
+|--------------------------------|--------------------|--------------------|
+| Initial: $[10, 5]$ | $10^2 + 5^2 = 125$                                  | $10 + 5 = 15$                                       |
+| New: $[9, 5]$      | $9^2 + 5^2 = 106$                                   | $9 + 5 = 14$                                        |
+| **Reduction Size** | **−19**                                             | **−1**                                              |
+
+> **Insight:** Ridge prioritizes shrinking **large** parameters because squaring large numbers increases the penalty exponentially. Lasso treats all unit reductions equally, allowing it to push a parameter to exactly zero.
+
+------------------------------------------------------------------------
+
+### Summary Comparison
+
+| Feature                    | Ridge ($L_2$)                         | Lasso ($L_1$)                           |
+|------------------|---------------------------|---------------------------|
+| **Primary Goal**           | Handle multicollinearity & stabilize  | Feature selection & simplicity          |
+| **Resulting Model**        | All features included (small weights) | Sparse model (irrelevant features = 0)  |
+| **Computational Solution** | Closed-form (Matrix algebra)          | Numerical optimization (Iterative)      |
+| **Bias-Variance Tradeoff** | Lower variance, slightly higher bias  | Lower variance, potentially higher bias |
+
+*Both models are essential tools for modern econometricians navigating data-rich (*$p \gg T$) environments!
+
+------------------------------------------------------------------------
+
+## Readings & Lecture 1 Mini-Lab
+
+### Required & Recommended Readings
+
+-   **Villena (2026):** *From Lagged Effects to Algorithmic Prediction.* Sets the historical framing for the "Four Revolutions" and the shift toward algorithmic prediction.
+
+-   **Masini, Medeiros, & Mendes (2023):** *Machine learning advances for time series forecasting.* Crucial for understanding evaluation under temporal dependence.
+
+-   **De Mol, Giannone, & Reichlin (2008) \[Recommended\]:** *Forecasting using a large number of predictors...* Demonstrates that when data is highly collinear, Ridge regression and factor models (e.g. PCA) are deeply connected and solve the curse of dimensionality effectively.
+
+------------------------------------------------------------------------
+
+### Lecture 1 Mini-Lab: Leakage-Safe Shrinkage
+
+> **The Project Task:** Build a leakage-safe Ridge/Lasso forecast for US YoY CPI (our canonical target) and compare it to a classical OLS benchmark using provided starter code.
+
+**Two R Scripts are provided for this lab:**
+
+1.  **Script 1 (Baseline):** A static train-test split to introduce the `glmnet` syntax and AR($p$) feature engineering.
+2.  **Script 2 (The Protocol):** A rigorous $h$-step ahead direct forecasting loop using rolling windows across multiple horizons.
+
+------------------------------------------------------------------------
+
+### Understanding Script 1: The Baseline AR(12) Pipeline
+
+**Core Mechanics of the Script:**
+
+-   **Feature Construction:** We use `embed(inflation, p + 1)` to automatically construct the $\mathbf{X}$ matrix of $t-1 \dots t-12$ lags without manual looping.
+-   **Temporal Split:** We strictly split the data at the 80% mark (`1:split_index`). *No random sampling is used* to prevent future information leaking into the training set.
+-   **Tuning** $\lambda$: The function `cv.glmnet(x_train, y_train)` performs $k$-fold cross-validation to find `lambda.min`.
+-   ⚠️ **Important Note:** We use standard $k$-fold here *only* to introduce the syntax. Because random $k$-fold breaks temporal order, all substantive results must use rolling/blocked CV or a time-ordered validation scheme!
+
+------------------------------------------------------------------------
+
+### Understanding Script 2: Rolling Windows & Direct Forecast
+
+The second script implements our Seminar Project evaluation protocol:
+
+**1. Direct** $h$-step Ahead Forecasting:
+
+Instead of forecasting $t+1$ and iterating to $t+h$, we model $y_{t+h}$ directly as a function of $X_t$. The script shifts the feature index back by $h$:
+
+``` r
+train_feature_idx <- train_target_idx - h
+```
+
+**2. The Rolling Loop:**
+
+-   **Outer Loops:** Iterate over forecast horizons ($h = 1, 3, 6, 12$) and window sizes ($T = 60, 120$ months).
+-   **Inner Loop (`step in 1:OOS_steps`):** Moves the training window forward exactly one month at a time, retraining the OLS, Ridge, and Lasso models at every single step before predicting exactly one out-of-sample data point.
+
+------------------------------------------------------------------------
+
+## Mini-Lab: Empirical Results & Commentary
+
+### Lab Results: The Baseline AR(12) Split
+
+| Model                 | RMSE   |
+|-----------------------|--------|
+| Standard AR(12) (OLS) | 0.1865 |
+| Lasso AR(12) (L1)     | 0.1959 |
+| Ridge AR(12) (L2)     | 0.3297 |
+
+⚠️ **Note:** Baseline RMSE uses k-fold tuning for illustration; do not interpret it as leakage-robust.
+
+> **Why did OLS win?** In a low-dimensional setting where the model is well-specified and variance is already moderate, shrinkage can add bias *without* providing enough variance reduction to improve OOS RMSE.
+
+------------------------------------------------------------------------
+
+### Lab Results: Rolling Windows & Long Horizons
+
+![OLS vs. ML Shrinkage — Rolling Window Results](../images/OLS vs. ML Shrinkage.png)
+
+**When Machine Learning saves the forecast:**
+
+-   **Long Horizons (**$h=12$): Signal-to-noise ratio drops. OLS overfits to noise, causing RMSE to explode.
+-   **Small Windows (**$T=60$): With only 5 observations per parameter, OLS variance becomes unstable.
+-   **The ML Edge:** Ridge and Lasso act as "insurance." By penalizing large coefficients, they stabilize the model during volatile periods or when degrees of freedom are scarce.
+
+> *Takeaway: Shrinkage is a requirement for stability, not just an option.*
+
+------------------------------------------------------------------------
+
+### Is Inflation "Linear" and "Stationary"? Implications for Forecasting and Shrinkage
+
+**Key point:** Treating YoY CPI inflation as strictly linear and stationary is often a useful *local approximation*, but it is not a safe global assumption for forecasting or policy inference.
+
+**1) Stationarity: what is plausibly true.**
+
+-   Monthly CPI levels are nonstationary; YoY inflation is *more* stable and can look stationary in long samples.
+-   Still, inflation exhibits **persistent dynamics**, **time-varying volatility** and **structural breaks** (policy regimes, supply shocks, measurement/revisions).
+
+**2) Linearity: what is plausibly true.**
+
+-   An AR(12) is a linear conditional-mean model; it can fit well when dynamics are stable.
+-   Nonlinearities can arise from **regime dependence** (high vs low inflation), **asymmetric responses** to shocks, and **changing persistence**.
+
+**3) Why OLS may beat Ridge/Lasso in your AR(12).**
+
+-   With only $p=12$ regressors and decent $T$, OLS variance is already low; shrinkage adds bias and may not reduce RMSE.
+-   If $\lambda$ is tuned with random $k$-fold CV, time-order is violated and results can be distorted; use rolling/blocked tuning.
+
+**4) What to do in practice (seminar rule).**
+
+-   Diagnose: unit-root tests + break tests; check stability with rolling estimates; examine residual autocorrelation and heteroskedasticity.
+-   Evaluate honestly: rolling/expanding OOS, multi-horizon loss (RMSE/MAE), and (when relevant) forecast comparison tests.
+-   Expect ML gains mainly in **data-rich**, **unstable**, or **nonlinear** environments (many predictors, regime shifts, interactions).
+
+------------------------------------------------------------------------
+
+## Concluding Remarks
+
+### Project: 10-Minute Check-In
+
+> **Our Standard Closing Questions:** 1. What changed in OOS RMSE by horizon? 2. Which failure mode did we fix (or create)?
+
+**Today's Answers:**
+
+-   **RMSE Shift:** OLS dominated $h=1$ and large windows ($T=120$). ML Shrinkage drastically improved $h=12$ on small windows ($T=60$).
+-   **Failure Mode Fixed:** We fixed the variance explosion of OLS in data-scarce, long-horizon settings.
+-   **Failure Mode Created:** We introduced bias. In highly stable, low-dimensional settings, Ridge/Lasso mathematically underperformed OLS.
+
+------------------------------------------------------------------------
+
+### Looking Ahead: Lecture 2
+
+> **Next Session: Kernel Methods and SVMs** --- Lecture 2 will focus on Kernel Methods and Support Vector Machines (SVM) for Time Series.
+
+**Topics to prepare for:**
+
+-   Maximum-margin learning and the Primal/Dual formulations.
+-   The "Kernel Trick" (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.
+-   Classification targets in macro/finance (e.g., recessions, stress events).
+
+⚠️ *Reminder: Reading memos for the Cortes & Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!*
