@@ -1,5 +1,5 @@
 ---
-title: "testing of ts course web site"
+title: "Testing of TS course web site - Spring 2026"
 ---
 
 This is a Quarto website.
