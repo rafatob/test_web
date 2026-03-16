@@ -4,7 +4,7 @@ project:
 
 website:
   title: "Machine Learning in Time Series"
-  description: "Curso del Prof. Marcelo Villena Ch., PhD — Machine Learning aplicado a Series de Tiempo"
+  description: "Course by Prof. Marcelo Villena Ch., PhD — Machine Learning Applied to Time Series"
 
   navbar:
     left:
@@ -14,19 +14,17 @@ website:
       - text: "Lectures"
         menu:
           - href: lectures/lecture_01.qmd
-            text: "Lecture 1 — Introducción"
+            text: "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage"
           - href: lectures/lecture_02.qmd
-            text: "Lecture 2 — ..."
+            text: "Lecture 2 — Kernel Methods and Support Vector Machines (SVM)"
           - href: lectures/lecture_03.qmd
-            text: "Lecture 3 — ..."
+            text: "Lecture 3 — High-Dimensional Linear Dynamics"
           - href: lectures/lecture_04.qmd
-            text: "Lecture 4 — ..."
+            text: "Lecture 4 — Deep Learning for Sequences"
           - href: lectures/lecture_05.qmd
-            text: "Lecture 5 — ..."
+            text: "Lecture 5 — Trees, Boosting, and Ensembles"
           - href: lectures/lecture_06.qmd
-            text: "Lecture 6 — ..."
-          - href: lectures/lecture_07.qmd
-            text: "Lecture 7 — ..."
+            text: "Lecture 6 — The Frontier: Attention, Text, and Causal ML"
       - href: about.qmd
         text: About
     right:
@@ -34,8 +32,8 @@ website:
         href: https://github.com/tu-usuario/tu-repo
 
   page-footer:
-    left: "© 2025 Prof. Marcelo Villena Ch., PhD — Machine Learning in Time Series"
-    right: "Desarrollado con [Quarto](https://quarto.org)"
+    left: "© 2026 Prof. Marcelo Villena Ch., PhD — Machine Learning in Time Series"
+    right: "Built with [Quarto](https://quarto.org)"
 
 format:
   html:
@@ -45,10 +43,10 @@ format:
     css: styles.css
     toc: true
     toc-depth: 3
-    toc-title: "Contenido"
+    toc-title: "Contents"
     smooth-scroll: true
     code-fold: true
-    code-tools: true
+    code-tools: false
     highlight-style: github
     html-math-method: mathjax
 

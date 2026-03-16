@@ -20,40 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -130,31 +96,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="./lectures/lecture_01.html" rel="" target="">
- <span class="dropdown-text">Lecture 1 — Introducción</span></a>
+ <span class="dropdown-text">Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./lectures/lecture_02.html" rel="" target="">
- <span class="dropdown-text">Lecture 2 — …</span></a>
+ <span class="dropdown-text">Lecture 2 — Kernel Methods and Support Vector Machines (SVM)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./lectures/lecture_03.html" rel="" target="">
- <span class="dropdown-text">Lecture 3 — …</span></a>
+ <span class="dropdown-text">Lecture 3 — High-Dimensional Linear Dynamics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./lectures/lecture_04.html" rel="" target="">
- <span class="dropdown-text">Lecture 4 — …</span></a>
+ <span class="dropdown-text">Lecture 4 — Deep Learning for Sequences</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./lectures/lecture_05.html" rel="" target="">
- <span class="dropdown-text">Lecture 5 — …</span></a>
+ <span class="dropdown-text">Lecture 5 — Trees, Boosting, and Ensembles</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./lectures/lecture_06.html" rel="" target="">
- <span class="dropdown-text">Lecture 6 — …</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./lectures/lecture_07.html" rel="" target="">
- <span class="dropdown-text">Lecture 7 — …</span></a>
+ <span class="dropdown-text">Lecture 6 — The Frontier: Attention, Text, and Causal ML</span></a>
   </li>  
     </ul>
   </li>
@@ -183,7 +145,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contenido</h2>
+    <h2 id="toc-title">Contents</h2>
    
   <ul>
   <li><a href="#course-description" id="toc-course-description" class="nav-link active" data-scroll-target="#course-description">Course Description</a></li>
@@ -198,8 +160,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Machine Learning in Time Series</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Prof.&nbsp;Marcelo Villena Ch., PhD</p>
+<h1 class="title">Machine Learning in Time Series</h1>
+<p class="subtitle lead">Professor Marcelo Villena Ch., PhD</p>
 </div>
 
 
@@ -278,8 +240,6 @@ Universidad Técnica Federico Santa María, Chile<br>
 🌐 <a href="https://www.marcelovillena.com/">www.marcelovillena.com</a><br>
 💼 <a href="https://www.linkedin.com/in/marcelovillena">LinkedIn</a></p>
 
-
-<!-- -->
 
 </section>
 
@@ -478,57 +438,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  const viewSource = window.document.getElementById('quarto-view-source') ||
-                     window.document.getElementById('quarto-code-tools-source');
-  if (viewSource) {
-    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-    viewSource.addEventListener("click", function(e) {
-      if (sourceUrl) {
-        // rstudio viewer pane
-        if (/\bcapabilities=\b/.test(window.location)) {
-          window.open(sourceUrl);
-        } else {
-          window.location.href = sourceUrl;
-        }
-      } else {
-        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-        modal.show();
-      }
-      return false;
-    });
-  }
-  function toggleCodeHandler(show) {
-    return function(e) {
-      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-      for (let i=0; i<detailsSrc.length; i++) {
-        const details = detailsSrc[i].parentElement;
-        if (show) {
-          details.open = true;
-        } else {
-          details.removeAttribute("open");
-        }
-      }
-      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-      const fromCls = show ? "hidden" : "unhidden";
-      const toCls = show ? "unhidden" : "hidden";
-      for (let i=0; i<cellCodeDivs.length; i++) {
-        const codeDiv = cellCodeDivs[i];
-        if (codeDiv.classList.contains(fromCls)) {
-          codeDiv.classList.remove(fromCls);
-          codeDiv.classList.add(toCls);
-        } 
-      }
-      return false;
-    }
-  }
-  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-  if (hideAllCode) {
-    hideAllCode.addEventListener("click", toggleCodeHandler(false));
-  }
-  const showAllCode = window.document.getElementById("quarto-show-all-code");
-  if (showAllCode) {
-    showAllCode.addEventListener("click", toggleCodeHandler(true));
-  }
   function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
@@ -682,49 +591,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Machine Learning in Time Series"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Prof. Marcelo Villena Ch., PhD"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Course Description</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>This course introduces the fundamentals and advanced techniques of **Machine Learning** applied to the analysis and modeling of **Time Series**. Both the theoretical foundations and the practical implementation of the models are covered.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contents</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>| <span class="sc">\#</span>  | Lecture                              | Topics                                                                           |</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>|-----|--------------------------------------|----------------------------------------------------------------------------------|</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>| 1   | <span class="co">[</span><span class="ot">Lecture 1</span><span class="co">](lectures/lecture_01.qmd)</span> | Historical Evolution, the Prediction Problem, and Shrinkage                      |</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>| 2   | <span class="co">[</span><span class="ot">Lecture 2</span><span class="co">](lectures/lecture_02.qmd)</span> | Kernel Methods and Support Vector Machines (SVM) for Time Series                 |</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>| 3   | <span class="co">[</span><span class="ot">Lecture 3</span><span class="co">](lectures/lecture_03.qmd)</span> | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, &amp; Structured Regularization) |</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>| 4   | <span class="co">[</span><span class="ot">Lecture 4</span><span class="co">](lectures/lecture_04.qmd)</span> | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)           |</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>| 5   | <span class="co">[</span><span class="ot">Lecture 5</span><span class="co">](lectures/lecture_05.qmd)</span> | Trees, Boosting, and Ensembles for Nonlinear Forecasting                         |</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>| 6   | <span class="co">[</span><span class="ot">Lecture 6</span><span class="co">](lectures/lecture_06.qmd)</span> | The Frontier: Attention, Text, and Causal ML                                     |</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Prerequisites</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Basic knowledge of statistics and probability</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Programming in Python or R</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Linear algebra</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Instructor</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>**Marcelo Villena Ch., PhD**\</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>Universidad Técnica Federico Santa María, Chile\</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>📧 <span class="co">[</span><span class="ot">marcelo.villena\@usm.cl</span><span class="co">](mailto:marcelo.villena@usm.cl)</span>\</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>🌐 <span class="co">[</span><span class="ot">www.marcelovillena.com</span><span class="co">](https://www.marcelovillena.com/)</span>\</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>💼 <span class="co">[</span><span class="ot">LinkedIn</span><span class="co">](https://www.linkedin.com/in/marcelovillena)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© 2025 Prof.&nbsp;Marcelo Villena Ch., PhD — Machine Learning in Time Series</div>   
+    <div class="nav-footer-left">© 2026 Prof.&nbsp;Marcelo Villena Ch., PhD — Machine Learning in Time Series</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Desarrollado con <a href="https://quarto.org">Quarto</a></div>
+    <div class="nav-footer-right">Built with <a href="https://quarto.org">Quarto</a></div>
   </div>
 </footer>
 
