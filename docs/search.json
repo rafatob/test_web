@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "Machine Learning in Time Series",
     "section": "",
-    "text": "Este curso introduce los fundamentos y técnicas avanzadas de Machine Learning aplicadas al análisis y modelamiento de Series de Tiempo. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos."
+    "text": "This course introduces the fundamentals and advanced techniques of Machine Learning applied to the analysis and modeling of Time Series. Both the theoretical foundations and the practical implementation of the models are covered."
   },
   {
     "objectID": "index.html#descripción-del-curso",
@@ -110,5 +110,33 @@
     "title": "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage",
     "section": "Concluding Remarks",
     "text": "Concluding Remarks\n\nProject: 10-Minute Check-In\n\nOur Standard Closing Questions: 1. What changed in OOS RMSE by horizon? 2. Which failure mode did we fix (or create)?\n\nToday’s Answers:\n\nRMSE Shift: OLS dominated \\(h=1\\) and large windows (\\(T=120\\)). ML Shrinkage drastically improved \\(h=12\\) on small windows (\\(T=60\\)).\nFailure Mode Fixed: We fixed the variance explosion of OLS in data-scarce, long-horizon settings.\nFailure Mode Created: We introduced bias. In highly stable, low-dimensional settings, Ridge/Lasso mathematically underperformed OLS.\n\n\n\n\nLooking Ahead: Lecture 2\n\nNext Session: Kernel Methods and SVMs — Lecture 2 will focus on Kernel Methods and Support Vector Machines (SVM) for Time Series.\n\nTopics to prepare for:\n\nMaximum-margin learning and the Primal/Dual formulations.\nThe “Kernel Trick” (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.\nClassification targets in macro/finance (e.g., recessions, stress events).\n\n⚠️ Reminder: Reading memos for the Cortes & Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!"
+  },
+  {
+    "objectID": "index.html#course-description",
+    "href": "index.html#course-description",
+    "title": "Machine Learning in Time Series",
+    "section": "",
+    "text": "This course introduces the fundamentals and advanced techniques of Machine Learning applied to the analysis and modeling of Time Series. Both the theoretical foundations and the practical implementation of the models are covered."
+  },
+  {
+    "objectID": "index.html#contents",
+    "href": "index.html#contents",
+    "title": "Machine Learning in Time Series",
+    "section": "Contents",
+    "text": "Contents\n\n\n\n#\nLecture\nTopics\n\n\n\n\n1\nLecture 1\nHistorical Evolution, the Prediction Problem, and Shrinkage\n\n\n2\nLecture 2\nKernel Methods and Support Vector Machines (SVM) for Time Series\n\n\n3\nLecture 3\nHigh-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization)\n\n\n4\nLecture 4\nDeep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)\n\n\n5\nLecture 5\nTrees, Boosting, and Ensembles for Nonlinear Forecasting\n\n\n6\nLecture 6\nThe Frontier: Attention, Text, and Causal ML"
+  },
+  {
+    "objectID": "index.html#prerequisites",
+    "href": "index.html#prerequisites",
+    "title": "Machine Learning in Time Series",
+    "section": "Prerequisites",
+    "text": "Prerequisites\n\nBasic knowledge of statistics and probability\nProgramming in Python or R\nLinear algebra"
+  },
+  {
+    "objectID": "index.html#instructor",
+    "href": "index.html#instructor",
+    "title": "Machine Learning in Time Series",
+    "section": "Instructor",
+    "text": "Instructor\nMarcelo Villena Ch., PhD\nUniversidad Técnica Federico Santa María, Chile\n📧 marcelo.villena@usm.cl\n🌐 www.marcelovillena.com\n💼 LinkedIn"
   }
 ]

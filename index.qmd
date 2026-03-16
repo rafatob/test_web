@@ -3,31 +3,31 @@ title: "Machine Learning in Time Series"
 subtitle: "Prof. Marcelo Villena Ch., PhD"
 ---
 
-## Descripción del Curso
+## Course Description
 
-Este curso introduce los fundamentos y técnicas avanzadas de **Machine Learning** aplicadas al análisis y modelamiento de **Series de Tiempo**. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos.
+This course introduces the fundamentals and advanced techniques of **Machine Learning** applied to the analysis and modeling of **Time Series**. Both the theoretical foundations and the practical implementation of the models are covered.
 
-## Contenidos
+## Contents
 
-| \#  | Lecture                              | Temas        |
-|-----|--------------------------------------|--------------|
-| 1   | [Lecture 1](lectures/lecture_01.qmd) | Introducción |
-| 2   | [Lecture 2](lectures/lecture_02.qmd) | ...          |
-| 3   | [Lecture 3](lectures/lecture_03.qmd) | ...          |
-| 4   | [Lecture 4](lectures/lecture_04.qmd) | ...          |
-| 5   | [Lecture 5](lectures/lecture_05.qmd) | ...          |
-| 6   | [Lecture 6](lectures/lecture_06.qmd) | ...          |
-| 7   | [Lecture 7](lectures/lecture_07.qmd) | ...          |
+| \#  | Lecture                              | Topics                                                                           |
+|-----|--------------------------------------|----------------------------------------------------------------------------------|
+| 1   | [Lecture 1](lectures/lecture_01.qmd) | Historical Evolution, the Prediction Problem, and Shrinkage                      |
+| 2   | [Lecture 2](lectures/lecture_02.qmd) | Kernel Methods and Support Vector Machines (SVM) for Time Series                 |
+| 3   | [Lecture 3](lectures/lecture_03.qmd) | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization) |
+| 4   | [Lecture 4](lectures/lecture_04.qmd) | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)           |
+| 5   | [Lecture 5](lectures/lecture_05.qmd) | Trees, Boosting, and Ensembles for Nonlinear Forecasting                         |
+| 6   | [Lecture 6](lectures/lecture_06.qmd) | The Frontier: Attention, Text, and Causal ML                                     |
 
-## Requisitos
+## Prerequisites
 
--   Conocimientos básicos de estadística y probabilidad
--   Programación en Python
--   Álgebra lineal
+-   Basic knowledge of statistics and probability
+-   Programming in Python or R
+-   Linear algebra
 
-## Profesor
+## Instructor
 
 **Marcelo Villena Ch., PhD**\
 Universidad Técnica Federico Santa María, Chile\
 📧 [marcelo.villena\@usm.cl](mailto:marcelo.villena@usm.cl)\
-🌐 [www.marcelovillena.com](https://www.marcelovillena.com/)
+🌐 [www.marcelovillena.com](https://www.marcelovillena.com/)\
+💼 [LinkedIn](https://www.linkedin.com/in/marcelovillena)
