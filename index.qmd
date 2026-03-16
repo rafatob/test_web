@@ -1,11 +1,31 @@
 ---
-title: "Testing of TS course web site - Spring 2026"
+title: "Machine Learning in Time Series"
+subtitle: "Prof. Marcelo Villena Ch., PhD"
 ---
 
-This is a Quarto website.
+## Descripción del Curso
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Este curso introduce los fundamentos y técnicas avanzadas de **Machine Learning** aplicadas al análisis y modelamiento de **Series de Tiempo**. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos.
 
-```{r}
-1 + 1
-```
+## Contenidos
+
+| \#  | Lecture                              | Temas        |
+|-----|--------------------------------------|--------------|
+| 1   | [Lecture 1](lectures/lecture_01.qmd) | Introducción |
+| 2   | [Lecture 2](lectures/lecture_02.qmd) | ...          |
+| 3   | [Lecture 3](lectures/lecture_03.qmd) | ...          |
+| 4   | [Lecture 4](lectures/lecture_04.qmd) | ...          |
+| 5   | [Lecture 5](lectures/lecture_05.qmd) | ...          |
+| 6   | [Lecture 6](lectures/lecture_06.qmd) | ...          |
+| 7   | [Lecture 7](lectures/lecture_07.qmd) | ...          |
+
+## Requisitos
+
+-   Conocimientos básicos de estadística y probabilidad
+-   Programación en Python
+-   Álgebra lineal
+
+## Profesor
+
+**Marcelo Villena Ch., PhD**\
+*(puedes agregar institución, email de contacto o enlace a perfil académico aquí)*

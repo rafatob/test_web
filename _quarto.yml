@@ -4,19 +4,56 @@ project:
 
 website:
   title: "Machine Learning in Time Series"
+  description: "Curso del Prof. Marcelo Villena Ch., PhD — Machine Learning aplicado a Series de Tiempo"
+
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - lecture_1.qmd
-      - about.qmd
-      - about2.qmd
+        icon: house
+      - text: "Lectures"
+        menu:
+          - href: lectures/lecture_01.qmd
+            text: "Lecture 1 — Introducción"
+          - href: lectures/lecture_02.qmd
+            text: "Lecture 2 — ..."
+          - href: lectures/lecture_03.qmd
+            text: "Lecture 3 — ..."
+          - href: lectures/lecture_04.qmd
+            text: "Lecture 4 — ..."
+          - href: lectures/lecture_05.qmd
+            text: "Lecture 5 — ..."
+          - href: lectures/lecture_06.qmd
+            text: "Lecture 6 — ..."
+          - href: lectures/lecture_07.qmd
+            text: "Lecture 7 — ..."
+      - href: about.qmd
+        text: About
+    right:
+      - icon: github
+        href: https://github.com/tu-usuario/tu-repo
+
+  page-footer:
+    left: "© 2025 Prof. Marcelo Villena Ch., PhD — Machine Learning in Time Series"
+    right: "Desarrollado con [Quarto](https://quarto.org)"
 
 format:
   html:
-    theme: default
+    theme:
+      light: flatly
+      dark: darkly
     css: styles.css
     toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    html-math-method: mathjax
+
+execute:
+  warning: false
+  message: false
 
 editor: visual
-

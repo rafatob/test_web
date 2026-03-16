@@ -2,8 +2,36 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Testing of TS course web site - Spring 2026",
+    "title": "Machine Learning in Time Series",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "Este curso introduce los fundamentos y técnicas avanzadas de Machine Learning aplicadas al análisis y modelamiento de Series de Tiempo. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos."
+  },
+  {
+    "objectID": "index.html#descripción-del-curso",
+    "href": "index.html#descripción-del-curso",
+    "title": "Machine Learning in Time Series",
+    "section": "",
+    "text": "Este curso introduce los fundamentos y técnicas avanzadas de Machine Learning aplicadas al análisis y modelamiento de Series de Tiempo. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos."
+  },
+  {
+    "objectID": "index.html#contenidos",
+    "href": "index.html#contenidos",
+    "title": "Machine Learning in Time Series",
+    "section": "Contenidos",
+    "text": "Contenidos\n\n\n\n#\nLecture\nTemas\n\n\n\n\n1\nLecture 1\nIntroducción\n\n\n2\nLecture 2\n…\n\n\n3\nLecture 3\n…\n\n\n4\nLecture 4\n…\n\n\n5\nLecture 5\n…\n\n\n6\nLecture 6\n…\n\n\n7\nLecture 7\n…"
+  },
+  {
+    "objectID": "index.html#requisitos",
+    "href": "index.html#requisitos",
+    "title": "Machine Learning in Time Series",
+    "section": "Requisitos",
+    "text": "Requisitos\n\nConocimientos básicos de estadística y probabilidad\nProgramación en Python\nÁlgebra lineal"
+  },
+  {
+    "objectID": "index.html#profesor",
+    "href": "index.html#profesor",
+    "title": "Machine Learning in Time Series",
+    "section": "Profesor",
+    "text": "Profesor\nMarcelo Villena Ch., PhD\n(puedes agregar institución, email de contacto o enlace a perfil académico aquí)"
   }
 ]

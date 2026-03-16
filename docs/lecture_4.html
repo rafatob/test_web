@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Marcelo Villena Ch., PhD">
 
-<title>Machine Learning in Time Series</title>
+<title>Machine Learning in Time Series - Lecture 1: Historical Evolution, the Prediction Problem, and Shrinkage</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -119,7 +120,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page"><i class="bi bi-house" role="img">
+    <a class="nav-link" href="./index.html" rel="" target=""><i class="bi bi-house" role="img">
 </i> 
  <span class="menu-text">Home</span></a>
   </li>  
@@ -182,30 +183,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contenido</h2>
-   
-  <ul>
-  <li><a href="#descripción-del-curso" id="toc-descripción-del-curso" class="nav-link active" data-scroll-target="#descripción-del-curso">Descripción del Curso</a></li>
-  <li><a href="#contenidos" id="toc-contenidos" class="nav-link" data-scroll-target="#contenidos">Contenidos</a></li>
-  <li><a href="#requisitos" id="toc-requisitos" class="nav-link" data-scroll-target="#requisitos">Requisitos</a></li>
-  <li><a href="#profesor" id="toc-profesor" class="nav-link" data-scroll-target="#profesor">Profesor</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Machine Learning in Time Series</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-<p class="subtitle lead">Prof.&nbsp;Marcelo Villena Ch., PhD</p>
+<div class="quarto-title-block"><div><h1 class="title">Lecture 1: Historical Evolution, the Prediction Problem, and Shrinkage</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Marcelo Villena Ch., PhD </p>
+          </div>
+  </div>
     
   
     
@@ -214,76 +211,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="descripción-del-curso" class="level2">
-<h2 class="anchored" data-anchor-id="descripción-del-curso">Descripción del Curso</h2>
-<p>Este curso introduce los fundamentos y técnicas avanzadas de <strong>Machine Learning</strong> aplicadas al análisis y modelamiento de <strong>Series de Tiempo</strong>. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos.</p>
-</section>
-<section id="contenidos" class="level2">
-<h2 class="anchored" data-anchor-id="contenidos">Contenidos</h2>
-<table class="table">
-<thead>
-<tr class="header">
-<th>#</th>
-<th>Lecture</th>
-<th>Temas</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td><a href="lectures/lecture_01.qmd">Lecture 1</a></td>
-<td>Introducción</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td><a href="lectures/lecture_02.qmd">Lecture 2</a></td>
-<td>…</td>
-</tr>
-<tr class="odd">
-<td>3</td>
-<td><a href="lectures/lecture_03.qmd">Lecture 3</a></td>
-<td>…</td>
-</tr>
-<tr class="even">
-<td>4</td>
-<td><a href="lectures/lecture_04.qmd">Lecture 4</a></td>
-<td>…</td>
-</tr>
-<tr class="odd">
-<td>5</td>
-<td><a href="lectures/lecture_05.qmd">Lecture 5</a></td>
-<td>…</td>
-</tr>
-<tr class="even">
-<td>6</td>
-<td><a href="lectures/lecture_06.qmd">Lecture 6</a></td>
-<td>…</td>
-</tr>
-<tr class="odd">
-<td>7</td>
-<td><a href="lectures/lecture_07.qmd">Lecture 7</a></td>
-<td>…</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="requisitos" class="level2">
-<h2 class="anchored" data-anchor-id="requisitos">Requisitos</h2>
-<ul>
-<li>Conocimientos básicos de estadística y probabilidad</li>
-<li>Programación en Python</li>
-<li>Álgebra lineal</li>
-</ul>
-</section>
-<section id="profesor" class="level2">
-<h2 class="anchored" data-anchor-id="profesor">Profesor</h2>
-<p><strong>Marcelo Villena Ch., PhD</strong><br>
-<em>(puedes agregar institución, email de contacto o enlace a perfil académico aquí)</em></p>
 
 
 <!-- -->
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -686,36 +617,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Machine Learning in Time Series"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> "Prof. Marcelo Villena Ch., PhD"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## Descripción del Curso</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>Este curso introduce los fundamentos y técnicas avanzadas de **Machine Learning** aplicadas al análisis y modelamiento de **Series de Tiempo**. Se cubren tanto los aspectos teóricos como la implementación práctica de los modelos.</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">## Contenidos</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>| <span class="sc">\#</span>  | Lecture                              | Temas        |</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>|-----|--------------------------------------|--------------|</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>| 1   | <span class="co">[</span><span class="ot">Lecture 1</span><span class="co">](lectures/lecture_01.qmd)</span> | Introducción |</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>| 2   | <span class="co">[</span><span class="ot">Lecture 2</span><span class="co">](lectures/lecture_02.qmd)</span> | ...          |</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>| 3   | <span class="co">[</span><span class="ot">Lecture 3</span><span class="co">](lectures/lecture_03.qmd)</span> | ...          |</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>| 4   | <span class="co">[</span><span class="ot">Lecture 4</span><span class="co">](lectures/lecture_04.qmd)</span> | ...          |</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>| 5   | <span class="co">[</span><span class="ot">Lecture 5</span><span class="co">](lectures/lecture_05.qmd)</span> | ...          |</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>| 6   | <span class="co">[</span><span class="ot">Lecture 6</span><span class="co">](lectures/lecture_06.qmd)</span> | ...          |</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>| 7   | <span class="co">[</span><span class="ot">Lecture 7</span><span class="co">](lectures/lecture_07.qmd)</span> | ...          |</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">## Requisitos</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Conocimientos básicos de estadística y probabilidad</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Programación en Python</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Álgebra lineal</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="fu">## Profesor</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>**Marcelo Villena Ch., PhD**\</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>*(puedes agregar institución, email de contacto o enlace a perfil académico aquí)*</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Lecture 1: Historical Evolution, the Prediction Problem, and Shrinkage"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">author :</span><span class="co"> "Marcelo Villena Ch., PhD"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
