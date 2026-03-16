@@ -1,5 +1,5 @@
 project:
-  type: website
+  output-dir: docs
 
 website:
   title: "Machine Learning in Time Series"
@@ -13,7 +13,7 @@ website:
 
 format:
   html:
-    theme: cosmo
+    theme: lux
     css: styles.css
     toc: true
 
