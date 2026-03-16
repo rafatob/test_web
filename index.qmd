@@ -28,4 +28,6 @@ Este curso introduce los fundamentos y técnicas avanzadas de **Machine Learning
 ## Profesor
 
 **Marcelo Villena Ch., PhD**\
-*(puedes agregar institución, email de contacto o enlace a perfil académico aquí)*
+Universidad Técnica Federico Santa María, Chile\
+📧 [marcelo.villena\@usm.cl](mailto:marcelo.villena@usm.cl)\
+🌐 [www.marcelovillena.com](https://www.marcelovillena.com/)

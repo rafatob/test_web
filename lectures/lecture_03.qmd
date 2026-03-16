@@ -1,0 +1,8 @@
+---
+title: "Lecture 3 — Introducción a ML en Series de Tiempo"
+author: "Tu Nombre"
+date: "2025-01-01"
+format:
+  html:
+    toc: true
+---

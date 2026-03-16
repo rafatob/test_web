@@ -1,5 +1,0 @@
----
-title: "Lecture 1: Historical Evolution, the Prediction Problem, and Shrinkage"
-
-author : "Marcelo Villena Ch., PhD"
----
