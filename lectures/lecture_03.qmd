@@ -1,10 +1,18 @@
 ---
-title: "Lecture 3 — Introducción a ML en Series de Tiempo"
-author: "MNarcelo Villena Ch."
-date: "2025-01-01"
+title: "Lecture 3 — High-Dimensional Linear Dynamics—BVAR, Sparse VAR, and Structured Regularization"
+author: "Prof. Marcelo Villena Ch., PhD"
+affiliation: "Universidad Técnica Federico Santa María, Chile"
+date: "Spring 2026"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    html-math-method: mathjax
 ---
 
 [📄 Download PDF](../pdf/lecture-3-high-dimensional-linear-dynamics-bvar-sparse-var.pdf "Lecture 3"){.btn .btn-primary}

@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: docs
   resources:
+  - pdf/phd-seminar-econometrics-data-science.pdf
   - pdf/lecture-1-historical-evolution-prediction-shrinkage.pdf
   - pdf/lecture-2-kernel-methods-svm-svr.pdf
   - pdf/lecture-3-high-dimensional-linear-dynamics-bvar-sparse-var.pdf
@@ -20,6 +21,8 @@ website:
         icon: house
       - text: "Lectures"
         menu:
+          - href: lectures/lecture_07.qmd
+            text: "Course Program & Overview"
           - href: lectures/lecture_01.qmd
             text: "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage"
           - href: lectures/lecture_02.qmd

@@ -1,10 +1,18 @@
 ---
-title: "Lecture 6 — Introducción a ML en Series de Tiempo"
-author: "Tu Nombre"
-date: "2025-01-01"
+title: "Lecture 6 — The Frontier—Attention, Text, and Causal ML"
+author: "Prof. Marcelo Villena Ch., PhD"
+affiliation: "Universidad Técnica Federico Santa María, Chile"
+date: "Spring 2026"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    html-math-method: mathjax
 ---
 
 [📄 Descargar PDF](../pdf/lecture-6-nlp-attention-causal-ml.pdf){.btn .btn-primary}

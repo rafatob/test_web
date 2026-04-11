@@ -1,10 +1,18 @@
 ---
-title: "Lecture 4 — Introducción a ML en Series de Tiempo"
-author: "Marcelo Villena Ch."
-date: "2025-01-01"
+title: "Lecture 4 — Deep Learning for Sequences—RNN/LSTM and Attention-Based Forecasting"
+author: "Prof. Marcelo Villena Ch., PhD"
+affiliation: "Universidad Técnica Federico Santa María, Chile"
+date: "Spring 2026"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    html-math-method: mathjax
 ---
 
 [📄 Descargar PDF](../pdf/lecture-4-deep-learning-sequences-rnn-lstm.pdf){.btn .btn-primary}

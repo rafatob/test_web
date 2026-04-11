@@ -1,8 +1,80 @@
 ---
-title: "Lecture 7 — Introducción a ML en Series de Tiempo"
-author: "Tu Nombre"
-date: "2025-01-01"
+title: "Course Program & Overview"
+author: "Prof. Marcelo Villena Ch., PhD"
+affiliation: "Universidad Técnica Federico Santa María, Chile"
+date: "Spring 2026"
 format:
   html:
     toc: true
+    toc-depth: 3
+    toc-title: "Contenido"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: true
+    highlight-style: github
+    html-math-method: mathjax
 ---
+
+## Seminar Overview & Mechanics
+
+### Seminar Objective
+
+> **The Core Objective:** This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.
+
+**Central Themes:**
+
+-   Treating ML methods as explicit optimization/statistical objects, not black boxes.
+-   Proper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.
+-   Shifting safely from structural identification to algorithmic risk minimization.
+
+------------------------------------------------------------------------
+
+### Course Mechanics & Evaluation
+
+**Format**
+
+-   6 Lectures, 3 hours each.
+-   **Structure per Lecture:** Theory & derivations (\~75 min), Paper discussion (\~75 min), and a Coding lab component (\~30 min).
+-   **Tools:** Python or R.
+
+**Evaluation Metrics**
+
+| Component             | Weight | Description                                                                                                           |
+|-----------------|-----------------|--------------------------------------|
+| Memos & Participation | 25%    | 1-page reading memo due before each Lecture.                                                                          |
+| Presentation          | 25%    | Present one syllabus paper + a 10-minute code walkthrough.                                                            |
+| Final Project         | 50%    | 10--15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation. |
+
+------------------------------------------------------------------------
+
+### The Seminar Project
+
+> **A Fixed Evaluation Protocol:** To compare methods fairly without getting lost in "cool models", the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.
+
+**The Task:** Multi-horizon forecasting of YoY Core CPI Inflation.
+
+-   **Baselines:** Mean/AR, small VAR, (optionally BVAR).
+-   **Data-Rich Extension:** Later lectures will inject FRED-style predictor panels.
+-   **Evaluation Rule:** Strict rolling/expanding OOS, leakage-safe tuning.
+-   **Horizons:** $h = \{1, 3, 6, 12\}$.
+-   **Metrics / Tests:**
+    -   Forecast loss: RMSE / MAE by horizon.
+    -   Comparison: Diebold-Mariano test when appropriate.
+    -   Classification tasks: AUC / PR + calibration.
+
+------------------------------------------------------------------------
+
+### The 6-Lectures Roadmap
+
+| Lecture       | Topic                                                                             |
+|-------------------|-----------------------------------------------------|
+| **Lecture 1** | Historical Evolution, the Prediction Problem, and Shrinkage.                      |
+| **Lecture 2** | Kernel Methods and Support Vector Machines (SVM) for Time Series.                 |
+| **Lecture 3** | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization). |
+| **Lecture 4** | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).           |
+| **Lecture 5** | Trees, Boosting, and Ensembles for Nonlinear Forecasting.                         |
+| **Lecture 6** | The Frontier: Attention, Text, and Causal ML.                                     |
+
+------------------------------------------------------------------------
+
+[📄 Download PDF](../pdf/phd-seminar-econometrics-data-science.pdf "Program and Overview"){.btn .btn-primary}
