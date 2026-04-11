@@ -1,0 +1,408 @@
+---
+title: "Practice 1 — Regularization: Ridge, Lasso vs OLS"
+subtitle: "PhD Seminar: Machine Learning in Time Series"
+author: "Prof. Marcelo Villena Ch., PhD"
+date: today
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    toc-title: "Contents"
+    smooth-scroll: true
+    code-fold: true
+    code-tools: false
+    highlight-style: github
+    html-math-method: mathjax
+execute:
+  warning: false
+  message: false
+  eval: true
+---
+
+## Overview
+
+This practice session is divided into two parts. Both use **US CPI inflation data** retrieved directly from FRED and apply an **AR(12)** structure --- that is, 12 monthly lags as predictors --- to compare three forecasting models:
+
+| Model | Penalty                             | Key idea                                           |
+|--------------------|-------------------------|----------------------------|
+| OLS   | None                                | Standard least squares; can overfit with many lags |
+| Ridge | L2 (shrinks all coefficients)       | Reduces variance, retains all predictors           |
+| Lasso | L1 (sets some coefficients to zero) | Performs variable selection automatically          |
+
+------------------------------------------------------------------------
+
+## Part A --- Static Train/Test Split
+
+### Objective
+
+Fit OLS, Ridge, and Lasso on a fixed **80/20 temporal split** and compare their out-of-sample RMSE. Ridge and Lasso use a **time-ordered validation** scheme (no random k-fold) to respect the temporal structure of the data.
+
+### Setup
+
+Load the required libraries. If any package is missing, install it first with `install.packages("package_name")`.
+
+```{r, echo=FALSE}
+#| label: setup-a
+library(quantmod)
+library(glmnet)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+library(jtools)
+```
+
+### Helper Function: Time-Ordered Tuning
+
+Standard cross-validation randomly shuffles observations, which **leaks future information** into the past. The function below avoids this by holding out the last `val_frac` of the training sample as a temporal validation block.
+
+```{r}
+#| label: helper-tune
+tune_glmnet_time_split <- function(X, y, alpha, val_frac = 0.20, min_val = 12,
+                                   standardize = TRUE) {
+  n <- nrow(X)
+  v <- max(min_val, floor(val_frac * n))
+  if (n <= v + 5) stop("Not enough observations to create a validation split.")
+
+  idx_tr <- 1:(n - v)
+  idx_va <- (n - v + 1):n
+
+  # Build a lambda grid from early training only
+  fit0 <- glmnet(X[idx_tr, , drop = FALSE], y[idx_tr],
+                 alpha = alpha, standardize = standardize)
+  lambda_grid <- fit0$lambda
+
+  # Evaluate each lambda on the held-out temporal block
+  fit_grid <- glmnet(X[idx_tr, , drop = FALSE], y[idx_tr],
+                     alpha = alpha, lambda = lambda_grid,
+                     standardize = standardize)
+
+  pred_va  <- predict(fit_grid, s = lambda_grid, newx = X[idx_va, , drop = FALSE])
+  y_va_mat <- matrix(y[idx_va], nrow = v, ncol = length(lambda_grid))
+  rmse     <- sqrt(colMeans((pred_va - y_va_mat)^2))
+  lambda_best <- lambda_grid[which.min(rmse)]
+
+  # Refit on the full training sample using the selected lambda
+  fit_full <- glmnet(X, y, alpha = alpha, lambda = lambda_grid,
+                     standardize = standardize)
+
+  list(fit = fit_full, lambda = lambda_best, rmse_path = rmse, v = v)
+}
+```
+
+### Step 1 --- Retrieve Inflation Data
+
+We download the **US Core CPI (CPILFESL)** from FRED and compute **year-over-year inflation** as a percentage change over 12 months.
+
+```{r}
+#| label: data-download
+cat("Retrieving US CPI data from FRED...\n")
+#getSymbols("CPILFESL", src = "FRED")
+CPILFESL <- readRDS("../data/CPILFESL.rds")
+
+inflation <- ROC(CPILFESL, n = 12, type = "discrete") * 100
+inflation <- na.omit(inflation)
+colnames(inflation) <- "Inflation"
+
+plot(inflation, main = "US Year-over-Year Inflation (%)")
+```
+
+### Step 2 --- Build the AR(12) Feature Matrix
+
+The `embed()` function stacks lagged values row by row. The result is:
+
+-   **Y**: the inflation value at time $t$\
+-   **X**: the 12 preceding monthly values ($t-1, \ldots, t-12$)
+
+```{r}
+#| label: feature-matrix
+p <- 12
+y_vec <- as.numeric(inflation)
+N     <- length(y_vec)
+
+lagged_matrix <- embed(y_vec, p + 1)
+Y <- lagged_matrix[, 1]
+X <- lagged_matrix[, 2:(p + 1)]
+colnames(X) <- paste0("Lag_", 1:p)
+
+dates <- index(inflation)[(p + 1):N]
+```
+
+### Step 3 --- Temporal Train/Test Split (80/20)
+
+We split the data **chronologically**: the first 80% is used for training, and the last 20% is reserved for out-of-sample evaluation. No observation from the future is used to fit any model.
+
+```{r}
+#| label: split
+split_index <- floor(nrow(X) * 0.8)
+
+x_train <- X[1:split_index, , drop = FALSE]
+y_train <- Y[1:split_index]
+
+x_test     <- X[(split_index + 1):nrow(X), , drop = FALSE]
+y_test     <- Y[(split_index + 1):length(Y)]
+test_dates <- dates[(split_index + 1):length(dates)]
+```
+
+### Step 4 --- Fit OLS (Standard AR(12))
+
+OLS estimates all 12 lag coefficients without any penalty. With many predictors, this can lead to **overfitting**, especially in small samples.
+
+```{r}
+#| label: ols
+train_df  <- data.frame(y = y_train, x_train)
+test_df   <- data.frame(x_test)
+
+ols_model <- lm(y ~ ., data = train_df)
+ols_pred  <- predict(ols_model, newdata = test_df)
+
+summ(ols_model)
+```
+
+### Step 5 --- Fit Ridge (L2 Penalty)
+
+Ridge shrinks all coefficients toward zero proportionally. The regularization strength $\lambda$ is selected via time-ordered validation (`alpha = 0`).
+
+```{r}
+#| label: ridge
+ridge_tuned <- tune_glmnet_time_split(x_train, y_train, alpha = 0,
+                                      val_frac = 0.20, min_val = 12)
+ridge_pred  <- predict(ridge_tuned$fit, s = ridge_tuned$lambda, newx = x_test)
+```
+
+### Step 6 --- Fit Lasso (L1 Penalty)
+
+Lasso sets some coefficients exactly to zero, performing automatic variable selection. Useful when only a few lags truly matter (`alpha = 1`).
+
+```{r}
+#| label: lasso
+lasso_tuned <- tune_glmnet_time_split(x_train, y_train, alpha = 1,
+                                      val_frac = 0.20, min_val = 12)
+lasso_pred  <- predict(lasso_tuned$fit, s = lasso_tuned$lambda, newx = x_test)
+
+cat("\n--- Lasso Coefficients at chosen lambda ---\n")
+print(coef(lasso_tuned$fit, s = lasso_tuned$lambda))
+```
+
+### Step 7 --- Compare Out-of-Sample RMSE
+
+```{r}
+#| label: rmse-a
+calc_rmse <- function(actual, predicted) sqrt(mean((actual - predicted)^2))
+
+results <- data.frame(
+  Model = c("OLS — AR(12)", "Ridge — AR(12) (L2)", "Lasso — AR(12) (L1)"),
+  RMSE  = c(calc_rmse(y_test, ols_pred),
+            calc_rmse(y_test, ridge_pred),
+            calc_rmse(y_test, lasso_pred))
+)
+
+cat("\n--- Out-of-Sample Performance (RMSE) ---\n")
+print(results)
+```
+
+### Step 8 --- Plot Out-of-Sample Forecasts
+
+```{r}
+#| label: plot-a
+#| fig-width: 10
+#| fig-height: 5
+plot_data <- data.frame(
+  Date   = test_dates,
+  Actual = y_test,
+  OLS    = as.numeric(ols_pred),
+  Ridge  = as.numeric(ridge_pred),
+  Lasso  = as.numeric(lasso_pred)
+)
+
+plot_long <- plot_data %>%
+  pivot_longer(cols = c("OLS", "Ridge", "Lasso"),
+               names_to = "Model", values_to = "Inflation")
+
+ggplot(plot_long, aes(x = Date)) +
+  geom_line(data = plot_data, aes(y = Actual, color = "Actual Data"), linewidth = 1.2) +
+  geom_line(aes(y = Inflation, color = Model), linetype = "dashed", linewidth = 0.8) +
+  labs(title    = "Out-of-Sample Inflation Forecast: OLS vs. Ridge vs. Lasso",
+       subtitle = "US YoY CPI — AR(12) structure with time-ordered tuning",
+       x = "Date", y = "Inflation Rate (%)") +
+  scale_color_manual(values = c("Actual Data" = "black",
+                                "OLS"   = "blue",
+                                "Ridge" = "green",
+                                "Lasso" = "red")) +
+  theme_minimal() +
+  theme(legend.title = element_blank(), legend.position = "bottom")
+```
+
+------------------------------------------------------------------------
+
+## Part B --- Rolling Windows & h-Step Ahead Forecasting
+
+### Objective
+
+Extend the analysis by evaluating forecasting performance across **multiple horizons** ($h = 1, 3, 6, 12$ months ahead) and **rolling window sizes** (60 and 120 months). This tests whether regularization remains beneficial as the forecasting difficulty increases.
+
+### Key Concepts
+
+**Direct h-step forecasting** fits a separate model for each horizon $h$, predicting $y_{t+h}$ directly from lags at time $t$. This avoids compounding errors from iterated one-step forecasts.
+
+**Rolling windows** retrain the model at each evaluation step using only the most recent $w$ observations, allowing the model to adapt to structural changes over time.
+
+### Setup
+
+```{r}
+#| label: setup-b
+library(quantmod)
+library(glmnet)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+
+cat("Retrieving US CPI data from FRED...\n")
+#getSymbols("CPILFESL", src = "FRED", auto.assign = TRUE)
+CPILFESL  <- readRDS("../data/CPILFESL.rds")
+inflation <- ROC(CPILFESL, n = 12, type = "discrete") * 100
+inflation <- na.omit(inflation)
+y_vec <- as.numeric(inflation)
+N     <- length(y_vec)
+```
+
+### Experiment Parameters
+
+```{r}
+#| label: params-b
+p        <- 12                   # AR lags
+horizons <- c(1, 3, 6, 12)      # Forecast horizons (months ahead)
+windows  <- c(60, 120)          # Rolling window sizes: 5 and 10 years
+OOS_steps <- 120                # Evaluate on last 10 years of data
+```
+
+### Rolling Forecast Loop
+
+For each combination of horizon $h$ and window size $w$, the loop:
+
+1.  Aligns features and targets for direct $h$-step forecasting\
+2.  Fits OLS, Ridge, and Lasso on the rolling training window\
+3.  Produces a one-step prediction for the current out-of-sample observation
+
+```{r}
+#| label: rolling-loop
+results_df <- data.frame()
+
+cat("\nStarting Rolling Forecast Experiment...\n")
+
+for (h in horizons) {
+  for (w in windows) {
+    cat(sprintf(" -> Horizon: %2d month(s) | Window: %3d months\n", h, w))
+
+    preds_ols   <- numeric(OOS_steps)
+    preds_ridge <- numeric(OOS_steps)
+    preds_lasso <- numeric(OOS_steps)
+    actuals     <- numeric(OOS_steps)
+
+    for (step in 1:OOS_steps) {
+
+      i        <- N - OOS_steps + step   # Index being predicted
+      origin_t <- i - h                  # Last observation available at forecast time
+
+      # Direct h-step feature alignment
+      train_target_idx  <- (origin_t - w + 1):origin_t
+      train_feature_idx <- train_target_idx - h
+
+      Y_train <- y_vec[train_target_idx]
+
+      X_train <- matrix(NA, nrow = w, ncol = p)
+      for (lag in 1:p) X_train[, lag] <- y_vec[train_feature_idx - lag + 1]
+
+      X_test <- matrix(NA, nrow = 1, ncol = p)
+      for (lag in 1:p) X_test[1, lag] <- y_vec[origin_t - lag + 1]
+
+      colnames(X_train) <- colnames(X_test) <- paste0("Lag_", 1:p)
+
+      # OLS
+      train_df         <- data.frame(Y = Y_train, X_train)
+      preds_ols[step]  <- predict(lm(Y ~ ., data = train_df), data.frame(X_test))
+
+      # Ridge
+      suppressWarnings({
+        mdl_ridge <- cv.glmnet(X_train, Y_train, alpha = 0)
+      })
+      preds_ridge[step] <- predict(mdl_ridge, s = "lambda.min", newx = X_test)
+
+      # Lasso
+      suppressWarnings({
+        mdl_lasso <- cv.glmnet(X_train, Y_train, alpha = 1)
+      })
+      preds_lasso[step] <- predict(mdl_lasso, s = "lambda.min", newx = X_test)
+
+      actuals[step] <- y_vec[i]
+    }
+
+    tmp <- data.frame(
+      Horizon_Num = h,
+      Window_Num  = w,
+      Horizon     = factor(paste0(h, "-Month Ahead"), levels = paste0(horizons, "-Month Ahead")),
+      Window      = factor(paste0(w, "M Window"),     levels = paste0(windows,  "M Window")),
+      OLS         = sqrt(mean((actuals - preds_ols)^2)),
+      Ridge       = sqrt(mean((actuals - preds_ridge)^2)),
+      Lasso       = sqrt(mean((actuals - preds_lasso)^2))
+    )
+    results_df <- rbind(results_df, tmp)
+  }
+}
+
+cat("\nExperiment Complete!\n")
+```
+
+### Results Table
+
+```{r}
+#| label: table-b
+table_output <- results_df %>%
+  select(Window, Horizon, OLS, Ridge, Lasso) %>%
+  arrange(Window, Horizon)
+
+print(table_output, row.names = FALSE, digits = 4)
+```
+
+### Results Chart
+
+The bar chart below compares RMSE across all horizon and window combinations. Look for patterns: does regularization help more at longer horizons? Does a larger window hurt or help?
+
+```{r}
+#| label: plot-b
+#| fig-width: 10
+#| fig-height: 6
+results_long <- results_df %>%
+  select(Window, Horizon, OLS, Ridge, Lasso) %>%
+  pivot_longer(cols = c(OLS, Ridge, Lasso),
+               names_to = "Model", values_to = "RMSE") %>%
+  mutate(Model = factor(Model, levels = c("OLS", "Ridge", "Lasso")))
+
+ggplot(results_long, aes(x = Model, y = RMSE, fill = Model)) +
+  geom_bar(stat = "identity", position = position_dodge(),
+           color = "black", alpha = 0.8) +
+  facet_grid(Window ~ Horizon) +
+  labs(title    = "Out-of-Sample RMSE: OLS vs. Ridge vs. Lasso",
+       subtitle = "Across forecast horizons and rolling window sizes",
+       x = "Model", y = "Root Mean Squared Error (RMSE)") +
+  scale_fill_manual(values = c("OLS" = "#1f77b4",
+                               "Ridge" = "#2ca02c",
+                               "Lasso" = "#d62728")) +
+  theme_bw() +
+  theme(
+    plot.title       = element_text(face = "bold", size = 16),
+    strip.background = element_rect(fill = "#e9ecef", color = "black"),
+    strip.text       = element_text(face = "bold", size = 11),
+    axis.text.x      = element_text(angle = 45, hjust = 1, face = "bold"),
+    legend.position  = "bottom"
+  )
+```
+
+------------------------------------------------------------------------
+
+## Discussion Questions
+
+1.  In Part A, which model achieves the lowest out-of-sample RMSE? Does the result surprise you given the number of predictors?
+2.  Which Lasso coefficients are set exactly to zero? What does this tell you about the most informative lags?
+3.  In Part B, how does RMSE evolve as the horizon $h$ increases? Is the ranking between models stable?
+4.  Compare the 60-month vs. 120-month rolling windows. When would a shorter window be preferable?
+5.  Why is time-ordered validation (Part A) more appropriate than random k-fold for this type of data?

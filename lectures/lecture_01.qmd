@@ -408,3 +408,7 @@ train_feature_idx <- train_target_idx - h
 -   Classification targets in macro/finance (e.g., recessions, stress events).
 
 ⚠️ *Reminder: Reading memos for the Cortes & Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!*
+
+## Practice
+
+[💻 Practice 1 --- Ridge, Lasso vs OLS](../practices/practice_01.qmd)

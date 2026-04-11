@@ -35,6 +35,10 @@ website:
             text: "Lecture 5 — Trees, Boosting, and Ensembles"
           - href: lectures/lecture_06.qmd
             text: "Lecture 6 — The Frontier: Attention, Text, and Causal ML"
+      - text: "Practices"          # ← nueva sección
+        menu:
+          - href: practices/practice_01.qmd
+            text: "Practice 1 — Regularization: Ridge, Lasso vs OLS"
       - href: about.qmd
         text: About
     right:
