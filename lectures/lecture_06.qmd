@@ -15,4 +15,4 @@ format:
     html-math-method: mathjax
 ---
 
-[📄 Descargar PDF](../pdf/lecture-6-nlp-attention-causal-ml.pdf){.btn .btn-primary}
+[📄 Download PDF](../pdf/lecture-6-nlp-attention-causal-ml.pdf "Lecture 6"){.btn .btn-primary}

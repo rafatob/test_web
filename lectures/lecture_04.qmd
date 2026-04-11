@@ -15,4 +15,4 @@ format:
     html-math-method: mathjax
 ---
 
-[📄 Descargar PDF](../pdf/lecture-4-deep-learning-sequences-rnn-lstm.pdf){.btn .btn-primary}
+[📄 Download PDF](../pdf/lecture-4-deep-learning-sequences-rnn-lstm.pdf "Lecture 4"){.btn .btn-primary}

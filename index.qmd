@@ -9,15 +9,15 @@ This course introduces the fundamentals and advanced techniques of **Machine Lea
 
 ## Contents
 
-| \#  | Lecture                              | Topics                                                                           |
-|--------------|-----------------|-----------------------------------------|
-| 0   | [Introduction](lectures/lecture_07.qmd) | Course Program & Overview
-| 1   | [Lecture 1](lectures/lecture_01.qmd) | Historical Evolution, the Prediction Problem, and Shrinkage                      |
-| 2   | [Lecture 2](lectures/lecture_02.qmd) | Kernel Methods and Support Vector Machines (SVM) for Time Series                 |
-| 3   | [Lecture 3](lectures/lecture_03.qmd) | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization) |
-| 4   | [Lecture 4](lectures/lecture_04.qmd) | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)           |
-| 5   | [Lecture 5](lectures/lecture_05.qmd) | Trees, Boosting, and Ensembles for Nonlinear Forecasting                         |
-| 6   | [Lecture 6](lectures/lecture_06.qmd) | The Frontier: Attention, Text, and Causal ML                                     |
+| \#  | Lecture                                 | Topics                                                                           |
+|-----|-----------------------------------------|----------------------------------------------------------------------------------|
+| 0   | [Introduction](lectures/lecture_07.qmd) | Course Program & Overview                                                        |
+| 1   | [Lecture 1](lectures/lecture_01.qmd)    | Historical Evolution, the Prediction Problem, and Shrinkage                      |
+| 2   | [Lecture 2](lectures/lecture_02.qmd)    | Kernel Methods and Support Vector Machines (SVM) for Time Series                 |
+| 3   | [Lecture 3](lectures/lecture_03.qmd)    | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization) |
+| 4   | [Lecture 4](lectures/lecture_04.qmd)    | Deep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)           |
+| 5   | [Lecture 5](lectures/lecture_05.qmd)    | Trees, Boosting, and Ensembles for Nonlinear Forecasting                         |
+| 6   | [Lecture 6](lectures/lecture_06.qmd)    | The Frontier: Attention, Text, and Causal ML                                     |
 
 ## Prerequisites
 

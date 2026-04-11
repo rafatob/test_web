@@ -15,4 +15,4 @@ format:
     html-math-method: mathjax
 ---
 
-[📄 Descargar PDF](../pdf/lecture-5-trees-boosting-ensembles.pdf){.btn .btn-primary}
+[📄 Download PDF](../pdf/lecture-5-trees-boosting-ensembles.pdf "Lecture 5"){.btn .btn-primary}
