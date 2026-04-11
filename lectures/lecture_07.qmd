@@ -40,7 +40,7 @@ format:
 **Evaluation Metrics**
 
 | Component             | Weight | Description                                                                                                           |
-|-----------------|-----------------|--------------------------------------|
+|-----------------------|--------|-----------------------------------------------------------------------------------------------------------------------|
 | Memos & Participation | 25%    | 1-page reading memo due before each Lecture.                                                                          |
 | Presentation          | 25%    | Present one syllabus paper + a 10-minute code walkthrough.                                                            |
 | Final Project         | 50%    | 10--15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation. |
@@ -67,7 +67,7 @@ format:
 ### The 6-Lectures Roadmap
 
 | Lecture       | Topic                                                                             |
-|-------------------|-----------------------------------------------------|
+|---------------|-----------------------------------------------------------------------------------|
 | **Lecture 1** | Historical Evolution, the Prediction Problem, and Shrinkage.                      |
 | **Lecture 2** | Kernel Methods and Support Vector Machines (SVM) for Time Series.                 |
 | **Lecture 3** | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization). |

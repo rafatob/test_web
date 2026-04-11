@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Tu Nombre">
-<meta name="dcterms.date" content="2025-01-01">
+<meta name="author" content="Prof.&nbsp;Marcelo Villena Ch., PhD">
+<meta name="dcterms.date" content="2026-01-01">
 
-<title>Machine Learning in Time Series - Lecture 2 — Introducción a ML en Series de Tiempo</title>
+<title>Machine Learning in Time Series - Lecture 2 — Kernel Methods and Support Vector Machines (SVM) for Time Series</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -131,32 +131,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
+    <a class="dropdown-item" href="../lectures/lecture_07.html" rel="" target="">
+ <span class="dropdown-text">Course Program &amp; Overview</span></a>
+  </li>  
+        <li>
     <a class="dropdown-item" href="../lectures/lecture_01.html" rel="" target="">
- <span class="dropdown-text">Lecture 1 — Introducción</span></a>
+ <span class="dropdown-text">Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_02.html" rel="" target="">
- <span class="dropdown-text">Lecture 2 — …</span></a>
+ <span class="dropdown-text">Lecture 2 — Kernel Methods and Support Vector Machines (SVM)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_03.html" rel="" target="">
- <span class="dropdown-text">Lecture 3 — …</span></a>
+ <span class="dropdown-text">Lecture 3 — High-Dimensional Linear Dynamics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_04.html" rel="" target="">
- <span class="dropdown-text">Lecture 4 — …</span></a>
+ <span class="dropdown-text">Lecture 4 — Deep Learning for Sequences</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_05.html" rel="" target="">
- <span class="dropdown-text">Lecture 5 — …</span></a>
+ <span class="dropdown-text">Lecture 5 — Trees, Boosting, and Ensembles</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_06.html" rel="" target="">
- <span class="dropdown-text">Lecture 6 — …</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../lectures/lecture_07.html" rel="" target="">
- <span class="dropdown-text">Lecture 7 — …</span></a>
+ <span class="dropdown-text">Lecture 6 — The Frontier: Attention, Text, and Causal ML</span></a>
   </li>  
     </ul>
   </li>
@@ -191,7 +191,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Lecture 2 — Introducción a ML en Series de Tiempo</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Lecture 2 — Kernel Methods and Support Vector Machines (SVM) for Time Series</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
 
 
@@ -201,14 +201,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Tu Nombre </p>
+             <p>Prof.&nbsp;Marcelo Villena Ch., PhD </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2025</p>
+      <p class="date">January 1, 2026</p>
     </div>
   </div>
   
@@ -218,6 +218,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<p><a href="../pdf/lecture-2-kernel-methods-svm-svr.pdf" class="btn btn-primary" title="Lecture 2">📄 Download PDF</a></p>
 
 
 <!-- -->
@@ -624,22 +625,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Lecture 2 — Introducción a ML en Series de Tiempo"</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Tu Nombre"</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "2025-01-01"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Lecture 2 — Kernel Methods and Support Vector Machines (SVM) for Time Series"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Prof. Marcelo Villena Ch., PhD"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">affiliation:</span><span class="co"> "Universidad Técnica Federico Santa María, Chile"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> "Spring 2026"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-title: "Contenido"</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">    smooth-scroll: true</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight-style: github</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">    html-math-method: mathjax</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">📄 Download PDF</span><span class="co">](../pdf/lecture-2-kernel-methods-svm-svr.pdf "Lecture 2")</span>{.btn .btn-primary}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© 2025 Prof.&nbsp;Marcelo Villena Ch., PhD — Machine Learning in Time Series</div>   
+    <div class="nav-footer-left">© 2026 Prof.&nbsp;Marcelo Villena Ch., PhD — Machine Learning in Time Series</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Desarrollado con <a href="https://quarto.org">Quarto</a></div>
+    <div class="nav-footer-right">Built with <a href="https://quarto.org">Quarto</a></div>
   </div>
 </footer>
 

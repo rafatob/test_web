@@ -53,7 +53,7 @@
     "href": "lectures/lecture_01.html",
     "title": "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage",
     "section": "",
-    "text": "The Core Objective: This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.\n\nCentral Themes:\n\nTreating ML methods as explicit optimization/statistical objects, not black boxes.\nProper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.\nShifting safely from structural identification to algorithmic risk minimization.\n\n\n\n\n\nFormat\n\n6 Lectures, 3 hours each.\nStructure per Lecture: Theory & derivations (~75 min), Paper discussion (~75 min), and a Coding lab component (~30 min).\nTools: Python or R.\n\nEvaluation Metrics\n\n\n\n\n\n\n\n\nComponent\nWeight\nDescription\n\n\n\n\nMemos & Participation\n25%\n1-page reading memo due before each Lecture.\n\n\nPresentation\n25%\nPresent one syllabus paper + a 10-minute code walkthrough.\n\n\nFinal Project\n50%\n10–15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation.\n\n\n\n\n\n\n\n\nA Fixed Evaluation Protocol: To compare methods fairly without getting lost in “cool models”, the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.\n\nThe Task: Multi-horizon forecasting of YoY Core CPI Inflation.\n\nBaselines: Mean/AR, small VAR, (optionally BVAR).\nData-Rich Extension: Later lectures will inject FRED-style predictor panels.\nEvaluation Rule: Strict rolling/expanding OOS, leakage-safe tuning.\nHorizons: \\(h = \\{1, 3, 6, 12\\}\\).\nMetrics / Tests:\n\nForecast loss: RMSE / MAE by horizon.\nComparison: Diebold-Mariano test when appropriate.\nClassification tasks: AUC / PR + calibration.\n\n\n\n\n\n\n\n\n\n\n\n\n\nLecture\nTopic\n\n\n\n\nLecture 1\nHistorical Evolution, the Prediction Problem, and Shrinkage.\n\n\nLecture 2\nKernel Methods and Support Vector Machines (SVM) for Time Series.\n\n\nLecture 3\nHigh-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization).\n\n\nLecture 4\nDeep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).\n\n\nLecture 5\nTrees, Boosting, and Ensembles for Nonlinear Forecasting.\n\n\nLecture 6\nThe Frontier: Attention, Text, and Causal ML."
+    "text": "📄 Download PDF"
   },
   {
     "objectID": "lectures/lecture_01.html#seminar-overview-mechanics",
@@ -109,7 +109,7 @@
     "href": "lectures/lecture_01.html#concluding-remarks",
     "title": "Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage",
     "section": "Concluding Remarks",
-    "text": "Concluding Remarks\n\nProject: 10-Minute Check-In\n\nOur Standard Closing Questions: 1. What changed in OOS RMSE by horizon? 2. Which failure mode did we fix (or create)?\n\nToday’s Answers:\n\nRMSE Shift: OLS dominated \\(h=1\\) and large windows (\\(T=120\\)). ML Shrinkage drastically improved \\(h=12\\) on small windows (\\(T=60\\)).\nFailure Mode Fixed: We fixed the variance explosion of OLS in data-scarce, long-horizon settings.\nFailure Mode Created: We introduced bias. In highly stable, low-dimensional settings, Ridge/Lasso mathematically underperformed OLS.\n\n\n\n\nLooking Ahead: Lecture 2\n\nNext Session: Kernel Methods and SVMs — Lecture 2 will focus on Kernel Methods and Support Vector Machines (SVM) for Time Series.\n\nTopics to prepare for:\n\nMaximum-margin learning and the Primal/Dual formulations.\nThe “Kernel Trick” (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.\nClassification targets in macro/finance (e.g., recessions, stress events).\n\n⚠️ Reminder: Reading memos for the Cortes & Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!\n📄 Descargar PDF"
+    "text": "Concluding Remarks\n\nProject: 10-Minute Check-In\n\nOur Standard Closing Questions: 1. What changed in OOS RMSE by horizon? 2. Which failure mode did we fix (or create)?\n\nToday’s Answers:\n\nRMSE Shift: OLS dominated \\(h=1\\) and large windows (\\(T=120\\)). ML Shrinkage drastically improved \\(h=12\\) on small windows (\\(T=60\\)).\nFailure Mode Fixed: We fixed the variance explosion of OLS in data-scarce, long-horizon settings.\nFailure Mode Created: We introduced bias. In highly stable, low-dimensional settings, Ridge/Lasso mathematically underperformed OLS.\n\n\n\n\nLooking Ahead: Lecture 2\n\nNext Session: Kernel Methods and SVMs — Lecture 2 will focus on Kernel Methods and Support Vector Machines (SVM) for Time Series.\n\nTopics to prepare for:\n\nMaximum-margin learning and the Primal/Dual formulations.\nThe “Kernel Trick” (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.\nClassification targets in macro/finance (e.g., recessions, stress events).\n\n⚠️ Reminder: Reading memos for the Cortes & Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!"
   },
   {
     "objectID": "index.html#course-description",
@@ -123,7 +123,7 @@
     "href": "index.html#contents",
     "title": "Machine Learning in Time Series",
     "section": "Contents",
-    "text": "Contents\n\n\n\n#\nLecture\nTopics\n\n\n\n\n1\nLecture 1\nHistorical Evolution, the Prediction Problem, and Shrinkage\n\n\n2\nLecture 2\nKernel Methods and Support Vector Machines (SVM) for Time Series\n\n\n3\nLecture 3\nHigh-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization)\n\n\n4\nLecture 4\nDeep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)\n\n\n5\nLecture 5\nTrees, Boosting, and Ensembles for Nonlinear Forecasting\n\n\n6\nLecture 6\nThe Frontier: Attention, Text, and Causal ML"
+    "text": "Contents\n\n\n\n#\nLecture\nTopics\n\n\n\n\n0\nIntroduction\nCourse Program & Overview\n\n\n1\nLecture 1\nHistorical Evolution, the Prediction Problem, and Shrinkage\n\n\n2\nLecture 2\nKernel Methods and Support Vector Machines (SVM) for Time Series\n\n\n3\nLecture 3\nHigh-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization)\n\n\n4\nLecture 4\nDeep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting)\n\n\n5\nLecture 5\nTrees, Boosting, and Ensembles for Nonlinear Forecasting\n\n\n6\nLecture 6\nThe Frontier: Attention, Text, and Causal ML"
   },
   {
     "objectID": "index.html#prerequisites",
@@ -138,5 +138,54 @@
     "title": "Machine Learning in Time Series",
     "section": "Instructor",
     "text": "Instructor\nMarcelo Villena Ch., PhD\nUniversidad Técnica Federico Santa María, Chile\n📧 marcelo.villena@usm.cl\n🌐 www.marcelovillena.com\n💼 LinkedIn"
+  },
+  {
+    "objectID": "lectures/lecture_07.html",
+    "href": "lectures/lecture_07.html",
+    "title": "Course Program & Overview",
+    "section": "",
+    "text": "The Core Objective: This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.\n\nCentral Themes:\n\nTreating ML methods as explicit optimization/statistical objects, not black boxes.\nProper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.\nShifting safely from structural identification to algorithmic risk minimization.\n\n\n\n\n\nFormat\n\n6 Lectures, 3 hours each.\nStructure per Lecture: Theory & derivations (~75 min), Paper discussion (~75 min), and a Coding lab component (~30 min).\nTools: Python or R.\n\nEvaluation Metrics\n\n\n\n\n\n\n\n\nComponent\nWeight\nDescription\n\n\n\n\nMemos & Participation\n25%\n1-page reading memo due before each Lecture.\n\n\nPresentation\n25%\nPresent one syllabus paper + a 10-minute code walkthrough.\n\n\nFinal Project\n50%\n10–15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation.\n\n\n\n\n\n\n\n\nA Fixed Evaluation Protocol: To compare methods fairly without getting lost in “cool models”, the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.\n\nThe Task: Multi-horizon forecasting of YoY Core CPI Inflation.\n\nBaselines: Mean/AR, small VAR, (optionally BVAR).\nData-Rich Extension: Later lectures will inject FRED-style predictor panels.\nEvaluation Rule: Strict rolling/expanding OOS, leakage-safe tuning.\nHorizons: \\(h = \\{1, 3, 6, 12\\}\\).\nMetrics / Tests:\n\nForecast loss: RMSE / MAE by horizon.\nComparison: Diebold-Mariano test when appropriate.\nClassification tasks: AUC / PR + calibration.\n\n\n\n\n\n\n\n\n\n\n\n\n\nLecture\nTopic\n\n\n\n\nLecture 1\nHistorical Evolution, the Prediction Problem, and Shrinkage.\n\n\nLecture 2\nKernel Methods and Support Vector Machines (SVM) for Time Series.\n\n\nLecture 3\nHigh-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization).\n\n\nLecture 4\nDeep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).\n\n\nLecture 5\nTrees, Boosting, and Ensembles for Nonlinear Forecasting.\n\n\nLecture 6\nThe Frontier: Attention, Text, and Causal ML.\n\n\n\n\n📄 Download PDF"
+  },
+  {
+    "objectID": "lectures/lecture_07.html#seminar-overview-mechanics",
+    "href": "lectures/lecture_07.html#seminar-overview-mechanics",
+    "title": "Course Program & Overview",
+    "section": "",
+    "text": "The Core Objective: This seminar studies the interface between traditional time-series econometrics and modern machine learning (ML) for (i) forecasting and (ii) policy-relevant inference.\n\nCentral Themes:\n\nTreating ML methods as explicit optimization/statistical objects, not black boxes.\nProper evaluation under strict time-series constraints: serial dependence, nonstationarity, structural breaks, and data revisions.\nShifting safely from structural identification to algorithmic risk minimization.\n\n\n\n\n\nFormat\n\n6 Lectures, 3 hours each.\nStructure per Lecture: Theory & derivations (~75 min), Paper discussion (~75 min), and a Coding lab component (~30 min).\nTools: Python or R.\n\nEvaluation Metrics\n\n\n\n\n\n\n\n\nComponent\nWeight\nDescription\n\n\n\n\nMemos & Participation\n25%\n1-page reading memo due before each Lecture.\n\n\nPresentation\n25%\nPresent one syllabus paper + a 10-minute code walkthrough.\n\n\nFinal Project\n50%\n10–15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation.\n\n\n\n\n\n\n\n\nA Fixed Evaluation Protocol: To compare methods fairly without getting lost in “cool models”, the entire 6-week seminar runs on a single canonical forecasting task. Every new model answers the same question under the exact same rules.\n\nThe Task: Multi-horizon forecasting of YoY Core CPI Inflation.\n\nBaselines: Mean/AR, small VAR, (optionally BVAR).\nData-Rich Extension: Later lectures will inject FRED-style predictor panels.\nEvaluation Rule: Strict rolling/expanding OOS, leakage-safe tuning.\nHorizons: \\(h = \\{1, 3, 6, 12\\}\\).\nMetrics / Tests:\n\nForecast loss: RMSE / MAE by horizon.\nComparison: Diebold-Mariano test when appropriate.\nClassification tasks: AUC / PR + calibration.\n\n\n\n\n\n\n\n\n\n\n\n\n\nLecture\nTopic\n\n\n\n\nLecture 1\nHistorical Evolution, the Prediction Problem, and Shrinkage.\n\n\nLecture 2\nKernel Methods and Support Vector Machines (SVM) for Time Series.\n\n\nLecture 3\nHigh-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization).\n\n\nLecture 4\nDeep Learning for Sequences (RNN/LSTM and Attention-Based Forecasting).\n\n\nLecture 5\nTrees, Boosting, and Ensembles for Nonlinear Forecasting.\n\n\nLecture 6\nThe Frontier: Attention, Text, and Causal ML.\n\n\n\n\n📄 Download PDF"
+  },
+  {
+    "objectID": "lectures/lecture_04.html",
+    "href": "lectures/lecture_04.html",
+    "title": "Lecture 4 — Deep Learning for Sequences—RNN/LSTM and Attention-Based Forecasting",
+    "section": "",
+    "text": "📄 Descargar PDF"
+  },
+  {
+    "objectID": "lectures/lecture_06.html",
+    "href": "lectures/lecture_06.html",
+    "title": "Lecture 6 — The Frontier—Attention, Text, and Causal ML",
+    "section": "",
+    "text": "📄 Descargar PDF"
+  },
+  {
+    "objectID": "lectures/lecture_03.html",
+    "href": "lectures/lecture_03.html",
+    "title": "Lecture 3 — High-Dimensional Linear Dynamics—BVAR, Sparse VAR, and Structured Regularization",
+    "section": "",
+    "text": "📄 Download PDF"
+  },
+  {
+    "objectID": "lectures/lecture_02.html",
+    "href": "lectures/lecture_02.html",
+    "title": "Lecture 2 — Kernel Methods and Support Vector Machines (SVM) for Time Series",
+    "section": "",
+    "text": "📄 Download PDF"
+  },
+  {
+    "objectID": "lectures/lecture_05.html",
+    "href": "lectures/lecture_05.html",
+    "title": "Lecture 5 — Trees, Boosting, and Ensembles for Nonlinear Macro/Finance Forecasting",
+    "section": "",
+    "text": "📄 Descargar PDF"
   }
 ]
