@@ -1,8 +1,10 @@
 ---
 title: "Lecture 4 — Introducción a ML en Series de Tiempo"
-author: "Tu Nombre"
+author: "Marcelo Villena Ch."
 date: "2025-01-01"
 format:
   html:
     toc: true
 ---
+
+[📄 Descargar PDF](../pdf/lecture-4-deep-learning-sequences-rnn-lstm.pdf){.btn .btn-primary}

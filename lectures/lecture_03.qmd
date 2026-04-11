@@ -1,8 +1,10 @@
 ---
 title: "Lecture 3 — Introducción a ML en Series de Tiempo"
-author: "Tu Nombre"
+author: "MNarcelo Villena Ch."
 date: "2025-01-01"
 format:
   html:
     toc: true
 ---
+
+[📄 Download PDF](../pdf/lecture-3-high-dimensional-linear-dynamics-bvar-sparse-var.pdf "Lecture 3"){.btn .btn-primary}

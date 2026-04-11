@@ -10,7 +10,7 @@ This course introduces the fundamentals and advanced techniques of **Machine Lea
 ## Contents
 
 | \#  | Lecture                              | Topics                                                                           |
-|--------------|-----------------|-----------------------------------------|
+|-----|--------------------------------------|----------------------------------------------------------------------------------|
 | 1   | [Lecture 1](lectures/lecture_01.qmd) | Historical Evolution, the Prediction Problem, and Shrinkage                      |
 | 2   | [Lecture 2](lectures/lecture_02.qmd) | Kernel Methods and Support Vector Machines (SVM) for Time Series                 |
 | 3   | [Lecture 3](lectures/lecture_03.qmd) | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization) |

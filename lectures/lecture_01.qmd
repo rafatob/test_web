@@ -16,6 +16,8 @@ format:
     html-math-method: mathjax
 ---
 
+[📄 Download PDF](../pdf/lecture-1-historical-evolution-prediction-shrinkage.pdf "Lecture 1"){.btn .btn-primary}
+
 ## Seminar Overview & Mechanics
 
 ### Seminar Objective
@@ -41,7 +43,7 @@ format:
 **Evaluation Metrics**
 
 | Component             | Weight | Description                                                                                                           |
-|-------------------------|-------------------|-----------------------------|
+|---------------|---------------|-------------------------------------------|
 | Memos & Participation | 25%    | 1-page reading memo due before each Lecture.                                                                          |
 | Presentation          | 25%    | Present one syllabus paper + a 10-minute code walkthrough.                                                            |
 | Final Project         | 50%    | 10--15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation. |
@@ -68,7 +70,7 @@ format:
 ### The 6-Lectures Roadmap
 
 | Lecture       | Topic                                                                             |
-|----------------------------------------|--------------------------------|
+|-----------------|-------------------------------------------------------|
 | **Lecture 1** | Historical Evolution, the Prediction Problem, and Shrinkage.                      |
 | **Lecture 2** | Kernel Methods and Support Vector Machines (SVM) for Time Series.                 |
 | **Lecture 3** | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, & Structured Regularization). |
@@ -311,7 +313,7 @@ Let's look at a numerical example to see how the penalties behave differently.
 Suppose our current coefficients are $\beta = [10, 5]$. What happens if the optimizer reduces the first parameter by exactly 1 unit (to 9)?
 
 | Scenario           | Ridge ($L_2$) Penalty $\left(\sum \beta_i^2\right)$ | Lasso ($L_1$) Penalty $\left(\sum |\beta_i|\right)$ |
-|--------------------------------|--------------------|--------------------|
+|------------------|---------------------------|---------------------------|
 | Initial: $[10, 5]$ | $10^2 + 5^2 = 125$                                  | $10 + 5 = 15$                                       |
 | New: $[9, 5]$      | $9^2 + 5^2 = 106$                                   | $9 + 5 = 14$                                        |
 | **Reduction Size** | **−19**                                             | **−1**                                              |
@@ -323,7 +325,7 @@ Suppose our current coefficients are $\beta = [10, 5]$. What happens if the opti
 ### Summary Comparison
 
 | Feature                    | Ridge ($L_2$)                         | Lasso ($L_1$)                           |
-|------------------|---------------------------|---------------------------|
+|-------------------|--------------------------|---------------------------|
 | **Primary Goal**           | Handle multicollinearity & stabilize  | Feature selection & simplicity          |
 | **Resulting Model**        | All features included (small weights) | Sparse model (irrelevant features = 0)  |
 | **Computational Solution** | Closed-form (Matrix algebra)          | Numerical optimization (Iterative)      |
@@ -404,7 +406,7 @@ train_feature_idx <- train_target_idx - h
 
 ### Lab Results: Rolling Windows & Long Horizons
 
-![OLS vs. ML Shrinkage — Rolling Window Results](../images/OLS vs. ML Shrinkage.png)
+![OLS vs. ML Shrinkage --- Rolling Window Results](../images/OLS%20vs.%20ML%20Shrinkage.png)
 
 **When Machine Learning saves the forecast:**
 

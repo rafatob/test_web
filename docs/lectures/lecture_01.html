@@ -134,31 +134,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <ul class="dropdown-menu" aria-labelledby="nav-menu-lectures">    
         <li>
     <a class="dropdown-item" href="../lectures/lecture_01.html" rel="" target="">
- <span class="dropdown-text">Lecture 1 — Introducción</span></a>
+ <span class="dropdown-text">Lecture 1 — Historical Evolution, the Prediction Problem, and Shrinkage</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_02.html" rel="" target="">
- <span class="dropdown-text">Lecture 2 — …</span></a>
+ <span class="dropdown-text">Lecture 2 — Kernel Methods and Support Vector Machines (SVM)</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_03.html" rel="" target="">
- <span class="dropdown-text">Lecture 3 — …</span></a>
+ <span class="dropdown-text">Lecture 3 — High-Dimensional Linear Dynamics</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_04.html" rel="" target="">
- <span class="dropdown-text">Lecture 4 — …</span></a>
+ <span class="dropdown-text">Lecture 4 — Deep Learning for Sequences</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_05.html" rel="" target="">
- <span class="dropdown-text">Lecture 5 — …</span></a>
+ <span class="dropdown-text">Lecture 5 — Trees, Boosting, and Ensembles</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="../lectures/lecture_06.html" rel="" target="">
- <span class="dropdown-text">Lecture 6 — …</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="../lectures/lecture_07.html" rel="" target="">
- <span class="dropdown-text">Lecture 7 — …</span></a>
+ <span class="dropdown-text">Lecture 6 — The Frontier: Attention, Text, and Causal ML</span></a>
   </li>  
     </ul>
   </li>
@@ -302,9 +298,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Evaluation Metrics</strong></p>
 <table class="table">
 <colgroup>
-<col style="width: 34%">
-<col style="width: 26%">
-<col style="width: 39%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 58%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -357,8 +353,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="the-6-lectures-roadmap">The 6-Lectures Roadmap</h3>
 <table class="table">
 <colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
+<col style="width: 23%">
+<col style="width: 76%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -610,9 +606,9 @@ Fold 3: [░░Train ████░░] [Test █]</code></pre>
 <p>Suppose our current coefficients are <span class="math inline">\(\beta = [10, 5]\)</span>. What happens if the optimizer reduces the first parameter by exactly 1 unit (to 9)?</p>
 <table class="table">
 <colgroup>
-<col style="width: 44%">
-<col style="width: 27%">
-<col style="width: 27%">
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 37%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -648,8 +644,8 @@ Fold 3: [░░Train ████░░] [Test █]</code></pre>
 <h3 class="anchored" data-anchor-id="summary-comparison">Summary Comparison</h3>
 <table class="table">
 <colgroup>
-<col style="width: 25%">
-<col style="width: 37%">
+<col style="width: 26%">
+<col style="width: 36%">
 <col style="width: 37%">
 </colgroup>
 <thead>
@@ -839,6 +835,7 @@ Fold 3: [░░Train ████░░] [Test █]</code></pre>
 <li>Classification targets in macro/finance (e.g., recessions, stress events).</li>
 </ul>
 <p>⚠️ <em>Reminder: Reading memos for the Cortes &amp; Vapnik (1995) and Bergmeir et al.&nbsp;(2018) papers are due before the next Lecture!</em></p>
+<p><a href="../pdf/lecture-1-historical-evolution-prediction-shrinkage.pdf" class="btn btn-primary">📄 Descargar PDF</a></p>
 
 
 <!-- -->
@@ -1289,7 +1286,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>**Evaluation Metrics**</span>
 <span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>| Component             | Weight | Description                                                                                                           |</span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>|-------------------------|-------------------|-----------------------------|</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>|---------------|---------------|-------------------------------------------|</span>
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>| Memos &amp; Participation | 25%    | 1-page reading memo due before each Lecture.                                                                          |</span>
 <span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>| Presentation          | 25%    | Present one syllabus paper + a 10-minute code walkthrough.                                                            |</span>
 <span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>| Final Project         | 50%    | 10--15 page replication paper or research proposal. Includes a complete empirical pipeline and honest OOS evaluation. |</span>
@@ -1316,7 +1313,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-68"><a href="#cb4-68" aria-hidden="true" tabindex="-1"></a><span class="fu">### The 6-Lectures Roadmap</span></span>
 <span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-70"><a href="#cb4-70" aria-hidden="true" tabindex="-1"></a>| Lecture       | Topic                                                                             |</span>
-<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>|----------------------------------------|--------------------------------|</span>
+<span id="cb4-71"><a href="#cb4-71" aria-hidden="true" tabindex="-1"></a>|-----------------|-------------------------------------------------------|</span>
 <span id="cb4-72"><a href="#cb4-72" aria-hidden="true" tabindex="-1"></a>| **Lecture 1** | Historical Evolution, the Prediction Problem, and Shrinkage.                      |</span>
 <span id="cb4-73"><a href="#cb4-73" aria-hidden="true" tabindex="-1"></a>| **Lecture 2** | Kernel Methods and Support Vector Machines (SVM) for Time Series.                 |</span>
 <span id="cb4-74"><a href="#cb4-74" aria-hidden="true" tabindex="-1"></a>| **Lecture 3** | High-Dimensional Linear Dynamics (BVAR, Sparse VAR, &amp; Structured Regularization). |</span>
@@ -1559,7 +1556,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-311"><a href="#cb4-311" aria-hidden="true" tabindex="-1"></a>Suppose our current coefficients are $\beta = <span class="co">[</span><span class="ot">10, 5</span><span class="co">]</span>$. What happens if the optimizer reduces the first parameter by exactly 1 unit (to 9)?</span>
 <span id="cb4-312"><a href="#cb4-312" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-313"><a href="#cb4-313" aria-hidden="true" tabindex="-1"></a>| Scenario           | Ridge ($L_2$) Penalty $\left(\sum \beta_i^2\right)$ | Lasso ($L_1$) Penalty $\left(\sum |\beta_i|\right)$ |</span>
-<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a>|--------------------------------|--------------------|--------------------|</span>
+<span id="cb4-314"><a href="#cb4-314" aria-hidden="true" tabindex="-1"></a>|------------------|---------------------------|---------------------------|</span>
 <span id="cb4-315"><a href="#cb4-315" aria-hidden="true" tabindex="-1"></a>| Initial: $<span class="co">[</span><span class="ot">10, 5</span><span class="co">]</span>$ | $10^2 + 5^2 = 125$                                  | $10 + 5 = 15$                                       |</span>
 <span id="cb4-316"><a href="#cb4-316" aria-hidden="true" tabindex="-1"></a>| New: $<span class="co">[</span><span class="ot">9, 5</span><span class="co">]</span>$      | $9^2 + 5^2 = 106$                                   | $9 + 5 = 14$                                        |</span>
 <span id="cb4-317"><a href="#cb4-317" aria-hidden="true" tabindex="-1"></a>| **Reduction Size** | **−19**                                             | **−1**                                              |</span>
@@ -1571,7 +1568,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-323"><a href="#cb4-323" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary Comparison</span></span>
 <span id="cb4-324"><a href="#cb4-324" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-325"><a href="#cb4-325" aria-hidden="true" tabindex="-1"></a>| Feature                    | Ridge ($L_2$)                         | Lasso ($L_1$)                           |</span>
-<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a>|------------------|---------------------------|---------------------------|</span>
+<span id="cb4-326"><a href="#cb4-326" aria-hidden="true" tabindex="-1"></a>|-------------------|--------------------------|---------------------------|</span>
 <span id="cb4-327"><a href="#cb4-327" aria-hidden="true" tabindex="-1"></a>| **Primary Goal**           | Handle multicollinearity &amp; stabilize  | Feature selection &amp; simplicity          |</span>
 <span id="cb4-328"><a href="#cb4-328" aria-hidden="true" tabindex="-1"></a>| **Resulting Model**        | All features included (small weights) | Sparse model (irrelevant features = 0)  |</span>
 <span id="cb4-329"><a href="#cb4-329" aria-hidden="true" tabindex="-1"></a>| **Computational Solution** | Closed-form (Matrix algebra)          | Numerical optimization (Iterative)      |</span>
@@ -1652,7 +1649,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-404"><a href="#cb4-404" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-405"><a href="#cb4-405" aria-hidden="true" tabindex="-1"></a><span class="fu">### Lab Results: Rolling Windows &amp; Long Horizons</span></span>
 <span id="cb4-406"><a href="#cb4-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a><span class="al">![OLS vs. ML Shrinkage — Rolling Window Results](../images/OLS vs. ML Shrinkage.png)</span></span>
+<span id="cb4-407"><a href="#cb4-407" aria-hidden="true" tabindex="-1"></a><span class="al">![OLS vs. ML Shrinkage --- Rolling Window Results](../images/OLS%20vs.%20ML%20Shrinkage.png)</span></span>
 <span id="cb4-408"><a href="#cb4-408" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-409"><a href="#cb4-409" aria-hidden="true" tabindex="-1"></a>**When Machine Learning saves the forecast:**</span>
 <span id="cb4-410"><a href="#cb4-410" aria-hidden="true" tabindex="-1"></a></span>
@@ -1715,16 +1712,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb4-467"><a href="#cb4-467" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The "Kernel Trick" (RBF, Polynomial) to project linear boundaries into non-linear, high-dimensional spaces.</span>
 <span id="cb4-468"><a href="#cb4-468" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Classification targets in macro/finance (e.g., recessions, stress events).</span>
 <span id="cb4-469"><a href="#cb4-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-470"><a href="#cb4-470" aria-hidden="true" tabindex="-1"></a>⚠️ *Reminder: Reading memos for the Cortes &amp; Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!*</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-470"><a href="#cb4-470" aria-hidden="true" tabindex="-1"></a>⚠️ *Reminder: Reading memos for the Cortes &amp; Vapnik (1995) and Bergmeir et al. (2018) papers are due before the next Lecture!*</span>
+<span id="cb4-471"><a href="#cb4-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-472"><a href="#cb4-472" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">📄 Descargar PDF</span><span class="co">](../pdf/lecture-1-historical-evolution-prediction-shrinkage.pdf)</span>{.btn .btn-primary}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
-    <div class="nav-footer-left">© 2025 Prof.&nbsp;Marcelo Villena Ch., PhD — Machine Learning in Time Series</div>   
+    <div class="nav-footer-left">© 2026 Prof.&nbsp;Marcelo Villena Ch., PhD — Machine Learning in Time Series</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>
-    <div class="nav-footer-right">Desarrollado con <a href="https://quarto.org">Quarto</a></div>
+    <div class="nav-footer-right">Built with <a href="https://quarto.org">Quarto</a></div>
   </div>
 </footer>
 

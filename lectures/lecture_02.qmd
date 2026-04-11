@@ -6,3 +6,5 @@ format:
   html:
     toc: true
 ---
+
+[📄 Download PDF](../pdf/lecture-2-kernel-methods-svm-svr.pdf "Lecture 2"){.btn .btn-primary}

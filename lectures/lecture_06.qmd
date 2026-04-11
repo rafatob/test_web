@@ -6,3 +6,5 @@ format:
   html:
     toc: true
 ---
+
+[📄 Descargar PDF](../pdf/lecture-6-nlp-attention-causal-ml.pdf){.btn .btn-primary}

@@ -1,6 +1,13 @@
 project:
   type: website
   output-dir: docs
+  resources:
+  - pdf/lecture-1-historical-evolution-prediction-shrinkage.pdf
+  - pdf/lecture-2-kernel-methods-svm-svr.pdf
+  - pdf/lecture-3-high-dimensional-linear-dynamics-bvar-sparse-var.pdf
+  - pdf/lecture-4-deep-learning-sequences-rnn-lstm.pdf
+  - pdf/lecture-5-trees-boosting-ensembles.pdf
+  - pdf/lecture-6-nlp-attention-causal-ml.pdf
 
 website:
   title: "Machine Learning in Time Series"
